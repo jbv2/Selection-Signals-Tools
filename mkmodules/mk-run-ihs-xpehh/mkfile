@@ -1,0 +1,14 @@
+### mk-run-ihs-xpehh ###
+# mkfile script with dependency rules for:
+## For more information about 'mk' dependency control, see https://9fans.github.io/plan9port/man/man1/mk.html
+
+## Define shell command line which will be used to run scripts.
+MKSHELL=/bin/bash
+
+%.ihs.tsv:Q:
+	echo "[DEBUG] Running iHS and XP-EHH"
+	find -L . -type f -name "*_chrom*.vcf.gz" | xargs basename -s .vcf.gz | sed "s#[a-z]*_chrom##" | sort -V > $stem.chrom
+	first_chrom=$(head -n1 $stem.chrom)
+	last_chrom=$(tail -n1 $stem.chrom)
+	end_file=".vcf.gz"
+	Rscript --vanilla mxb_selection.R "21" "22" $stem"_chrom" $end_file $FIRST_POP $SECOND_POP $target $STEM_INGROUP $END_FILE_INGROUP
