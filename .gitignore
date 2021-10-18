@@ -1,0 +1,34 @@
+## ignore swap files
+*.swp
+
+## ignore Rplots.pdf trash files
+*Rplots.pdf
+
+## ignore nf.logs
+.nextflow.log*
+.nextflow/
+
+## ignore workdirw
+work*
+
+## Ignore test subdirectories from mkmodules
+mkmodules/*/test/results/*
+
+## ignore intermediate and logs from tests
+test/data/*/intermediate/
+test/data/*/logs/
+test/results*
+mkmodules/*/test/data/*
+
+## ignore local R datas
+*.Rdata
+*.Rhistory
+
+## ignore real data dirs
+real-data
+
+## ignore modules marked as REDO - means, in need of refactoring or remaking
+*REDO
+
+## ignore post-analysis
+post-analysis
