@@ -7,5 +7,6 @@ MKSHELL=/bin/bash
 %.CHECKPOINT.tmp:V: %.vcf.gz
 	for i in {1..22};
 	do bcftools view --regions $i $prereq \
+	| bcftools +fill-tags -- -t F_MISSING,AF \
 	| bgzip > $stem"_chrom"$i.vcf.gz ;
 	done
