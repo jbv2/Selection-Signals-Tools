@@ -1,9 +1,15 @@
 ### mk-extract-autosomes
-
+#	| bcftools view -m2 -M2 -v snps
 ## Define shell command line which will be used to run scripts.
+## Manually have to change F_MISSING
 MKSHELL=/bin/bash
 
-%.CHECKPOINT.tmp:VQ: %.vcf.gz
+%.CHECKPOINT.tmp:V: %.vcf.gz
 	for i in {1..22};
-	do bcftools view --regions $i $prereq | bgzip > $stem"_chrom"$i.vcf.gz ;
+	do bcftools view --regions $i $prereq \
+	| bcftools +fill-tags -- -t F_MISSING,AF \
+	| bcftools view -i 'F_MISSING<'$GENO \
+			--min-af $MIN_AF \
+			-m$MIN_ALLELES -M$MAX_ALLELES --type snps \
+	| bgzip > $stem"_chrom"$i.vcf.gz ;
 	done

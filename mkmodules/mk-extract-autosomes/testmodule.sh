@@ -3,7 +3,10 @@
 
 ###
 ## environment variable setting
-# NONE
+export MIN_AF="0"
+export GENO="0.001"
+export MIN_ALLELES="0"
+export MAX_ALLELES="100"
 ###
 
 echo "[>..] test running this module with data in test/data"

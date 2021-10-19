@@ -2,7 +2,7 @@
 
 ## find every vcf.gz file
 #find: -L option to include symlinks
-find -L test/data \
+find -L . \
   -type f \
   -name "*.vcf.gz" \
   ! -name "test_1000g*" \
