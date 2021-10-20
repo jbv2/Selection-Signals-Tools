@@ -8,5 +8,8 @@ MKSHELL=/bin/bash
 	for i in {1..22};
 	do bcftools view --regions $i $prereq \
 	| bcftools +fill-tags -- -t F_MISSING,AF \
+	| bcftools view -i 'F_MISSING<'$GENO \
+			--min-af $MIN_AF \
+			-m$MIN_ALLELES -M$MAX_ALLELES --type snps \
 	| bgzip > $stem"_chrom"$i.vcf.gz ;
 	done
