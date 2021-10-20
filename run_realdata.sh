@@ -1,4 +1,4 @@
-decho -e "======\n Real data NF execution \n======" \
+echo -e "======\n Real data NF execution \n======" \
 && rm -rf real-data/results/ \
 && nextflow run mxb_selection_signals_tool.nf \
 	--vcffile "real-data/data/MXBiobank_complete_phase.vcf.gz" \
