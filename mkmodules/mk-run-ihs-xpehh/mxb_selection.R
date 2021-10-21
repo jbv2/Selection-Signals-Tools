@@ -16,14 +16,15 @@ args = commandArgs(trailingOnly=TRUE)
 ## Load args´
 ## For debuggin only.
 ## Comment for running in mk
-# args[1] <- 21
-# args[2] <- 22
-# args[3] <- "test/data/test_chrom"
-# args[4] <- ".vcf.gz"
-# args[5] <- "MXB"
-# args[6] <- "PEL"
-# args[7] <- "test/data/test.ihs.tsv"
-# args[8] <- "test/reference/test_1000g_"
+ # args[1] <- 1
+ # args[2] <- 22
+ # args[3] <- "./MXBiobank_complete_phase_chrom"
+ # args[4] <- ".vcf.gz"
+ # args[5] <- "MXB"
+ # args[6] <- "PEL"
+ # args[7] <- "./MXBiobank_complete_phase.ihs.tsv"
+ # args[8] <- "./PEL.chr"
+ # args[9] <- ".phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz"
 
 ##Assign args
 first_chrom <- args[1]
@@ -145,7 +146,7 @@ write.table(x = wgscan.ihs.qqman, file = ihs_qqman_table, quote = F, sep = "\t")
 ## Reading VCFs and calculating EHH per chromosome in ingroup
 for(i in first_chrom:last_chrom) {
   # haplotype file name for each chromosome
-  hh <- data2haplohh(hap_file = paste(stem_ingroup,i, end_file, sep = ""),
+  hh <- data2haplohh(hap_file = paste(stem_ingroup,i, end_file_ingroup, sep = ""),
                      polarize_vcf = FALSE,
                      vcf_reader = "data.table", remove_multiple_markers = T)
   # perform scan on a single chromosome (calculate iHH values)

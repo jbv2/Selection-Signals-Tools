@@ -5,8 +5,8 @@
 ## environment variable setting
 export FIRST_POP="MXB"
 export SECOND_POP="PEL"
-export STEM_INGROUP="test/reference/test_1000g_"
-export END_FILE_INGROUP=".vcf.gz"
+export STEM_INGROUP="PEL.chr"
+export END_FILE_INGROUP=".phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz"
 ###
 
 echo "[>..] test running this module with data in test/data"
