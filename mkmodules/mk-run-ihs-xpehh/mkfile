@@ -14,5 +14,5 @@ MKSHELL=/bin/bash
 	#last_chrom="22"
 	end_file=".vcf.gz"
 	#echo "$first_chrom $last_chrom $stem"_chrom" $end_file $FIRST_POP $SECOND_POP $target $STEM_INGROUP $END_FILE_INGROUP"
-	Rscript --vanilla mxb_selection.R $first_chrom $last_chrom $stem"_chrom" $end_file $FIRST_POP $SECOND_POP $target $STEM_INGROUP $END_FILE_INGROUP #\
-	#&& rm $stem.chrom
+	Rscript --vanilla mxb_selection.R 1 22 $stem"_chrom" $end_file $FIRST_POP $SECOND_POP $target $STEM_INGROUP $END_FILE_INGROUP \
+	&& rm $stem.chrom

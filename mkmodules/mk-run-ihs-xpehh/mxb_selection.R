@@ -141,59 +141,59 @@ write.table(x = wgscan.ihs.qqman, file = ihs_qqman_table, quote = F, sep = "\t")
 # lam =P_lambda(wgscan.ihs.qqman$P)
 
 
-## XP-EHH
-
-## Reading VCFs and calculating EHH per chromosome in ingroup
-for(i in first_chrom:last_chrom) {
-  # haplotype file name for each chromosome
-  hh <- data2haplohh(hap_file = paste(stem_ingroup,i, end_file_ingroup, sep = ""),
-                     polarize_vcf = FALSE,
-                     vcf_reader = "data.table", remove_multiple_markers = T)
-  # perform scan on a single chromosome (calculate iHH values)
-  scan <- scan_hh(hh)
-  # concatenate chromosome-wise data frames to
-  # a data frame for the whole genome
-  # (more efficient ways certainly exist...)
-  if (i == first_chrom) {
-    wgscan_ingroup <- scan
-  } else {
-    wgscan_ingroup <- rbind(wgscan_ingroup, scan)
-  }
-}
-
-# Calculate XP-EHH
-xpehh.mxb_pel <- ies2xpehh(scan_pop1 =  wgscan,
-                           scan_pop2 =  wgscan_ingroup,
-                           popname1 = first_pop,
-                           popname2 = second_pop, include_freq = F)
-
-## Detecting outliers for XP-EHH
-cr.mxb_xp_ehh <- calc_candidate_regions(xpehh.mxb_pel,
-                                     threshold = 4,
-                                     pval = TRUE,
-                                     window_size = 1E6,
-                                     overlap = 1E5,
-                                     min_n_extr_mrk = 2)
-
-
-##Save results to tables
-write.table(x = xpehh.mxb_pel, file = xp_ehh, quote = F, sep = "\t")
-write.table(x = cr.mxb_xp_ehh, file = outliers_xp_ehh, quote = F, sep = "\t")
-
-# create new data frame for qqman
-wgscan.xpehh.qqman <- data.frame(
-  CHR = as.integer(xpehh.mxb_pel$CHR),
-  # chromosomes as integers
-  BP = xpehh.mxb_pel$POSITION,         # base pairs
-  P = 10**(-xpehh.mxb_pel$LOGPVALUE),  # transform back to p-values
-  SNP = row.names(xpehh.mxb_pel)       # SNP names
-)
-
-wgscan.xpehh.qqman <- wgscan.xpehh.qqman %>%
-  filter(P != "NA")
-
-## Saving qqman data as table
-write.table(x = wgscan.xpehh.qqman, file = xp_ehh_qqman_table, quote = F, sep = "\t")
+# ## XP-EHH
+# 
+# ## Reading VCFs and calculating EHH per chromosome in ingroup
+# for(i in first_chrom:last_chrom) {
+#   # haplotype file name for each chromosome
+#   hh <- data2haplohh(hap_file = paste(stem_ingroup,i, end_file_ingroup, sep = ""),
+#                      polarize_vcf = FALSE,
+#                      vcf_reader = "data.table", remove_multiple_markers = T)
+#   # perform scan on a single chromosome (calculate iHH values)
+#   scan <- scan_hh(hh)
+#   # concatenate chromosome-wise data frames to
+#   # a data frame for the whole genome
+#   # (more efficient ways certainly exist...)
+#   if (i == first_chrom) {
+#     wgscan_ingroup <- scan
+#   } else {
+#     wgscan_ingroup <- rbind(wgscan_ingroup, scan)
+#   }
+# }
+# 
+# # Calculate XP-EHH
+# xpehh.mxb_pel <- ies2xpehh(scan_pop1 =  wgscan,
+#                            scan_pop2 =  wgscan_ingroup,
+#                            popname1 = first_pop,
+#                            popname2 = second_pop, include_freq = F)
+# 
+# ## Detecting outliers for XP-EHH
+# cr.mxb_xp_ehh <- calc_candidate_regions(xpehh.mxb_pel,
+#                                      threshold = 4,
+#                                      pval = TRUE,
+#                                      window_size = 1E6,
+#                                      overlap = 1E5,
+#                                      min_n_extr_mrk = 2)
+# 
+# 
+# ##Save results to tables
+# write.table(x = xpehh.mxb_pel, file = xp_ehh, quote = F, sep = "\t")
+# write.table(x = cr.mxb_xp_ehh, file = outliers_xp_ehh, quote = F, sep = "\t")
+# 
+# # create new data frame for qqman
+# wgscan.xpehh.qqman <- data.frame(
+#   CHR = as.integer(xpehh.mxb_pel$CHR),
+#   # chromosomes as integers
+#   BP = xpehh.mxb_pel$POSITION,         # base pairs
+#   P = 10**(-xpehh.mxb_pel$LOGPVALUE),  # transform back to p-values
+#   SNP = row.names(xpehh.mxb_pel)       # SNP names
+# )
+# 
+# wgscan.xpehh.qqman <- wgscan.xpehh.qqman %>%
+#   filter(P != "NA")
+# 
+# ## Saving qqman data as table
+# write.table(x = wgscan.xpehh.qqman, file = xp_ehh_qqman_table, quote = F, sep = "\t")
 
 # if (!is.na(xpehh.mxb_pel$XPEHH_MXB_PEL)) {
 #   manhattan(wgscan.xpehh.qqman, col = brewer.pal(name = "Set2", n = 8),
