@@ -9,7 +9,7 @@ echo -e "======\n Real data NF execution \n======" \
   --first_pop "MXB" \
   --second_pop "PEL" \
   --stem_ingroup "real-data/reference/PEL.chr" \
-  --end_file_ingroup ".phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz" \
+  --end_file_ingroup ".phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes_no_duplicated.vcf.gz" \
   --output_dir real-data/results \
 	-resume \
 	-with-report real-data/results/`date +%Y%m%d_%H%M%S`_report.html \
