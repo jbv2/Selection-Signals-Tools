@@ -10,6 +10,7 @@
 
 ## ignore workdirw
 work*
+pbs/work*
 
 ## Ignore test subdirectories from mkmodules
 mkmodules/*/test/results/*
