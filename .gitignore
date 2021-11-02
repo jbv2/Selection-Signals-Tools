@@ -14,12 +14,17 @@ work*
 ## Ignore test subdirectories from mkmodules
 mkmodules/*/test/results/*
 ./*/mkmodules/*/test/results/*
+pbs/mkmodules/*/test/results/*
 
 ## ignore intermediate and logs from tests
 test/data/*/intermediate/
 test/data/*/logs/
 test/results*
 mkmodules/*/test/data/*
+pbs/test/data/*/intermediate/
+pbs/test/data/*/logs/
+pbs/test/results*
+pbs/mkmodules/*/test/data/*
 
 ## ignore local R datas
 *.Rdata
