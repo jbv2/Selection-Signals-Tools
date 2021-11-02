@@ -13,6 +13,7 @@ work*
 
 ## Ignore test subdirectories from mkmodules
 mkmodules/*/test/results/*
+./*/mkmodules/*/test/results/*
 
 ## ignore intermediate and logs from tests
 test/data/*/intermediate/
