@@ -1,0 +1,7 @@
+## mk-calculate-pbs-per-gene
+## Define shell command line which will be used to run scripts.
+MKSHELL="/bin/bash"
+
+%/pbs_results.tsv:Q: %/
+	echo "[DEBUG] Calculating PBS per gene for $(ls $prereq*.csv)"
+	Rscript --vanilla pbs_calculator.R $prereq $target $REF_GENE $POP_1 $POP_2 $POP_3

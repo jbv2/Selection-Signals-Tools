@@ -1,0 +1,11 @@
+## mk-wrangling-per-gene
+## Define shell command line which will be used to run scripts.
+MKSHELL="/bin/bash"
+
+%.csv:QV:
+	dir=$(dirname $target)
+	filename=$(echo $target | sed 's#.csv##' | xargs -n 1 basename)
+	#echo "$filename"
+	#echo $dir
+	echo "[DEBUG] wrangling data for $filename "
+	Rscript --vanilla wrangling.R $dir/ $filename
