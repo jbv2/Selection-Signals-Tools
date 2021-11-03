@@ -3,10 +3,7 @@
 
 ###
 ## environment variable setting
-export FIRST_POP="MXB"
-export SECOND_POP="PEL"
-export STEM_INGROUP="PEL.chr"
-export END_FILE_INGROUP=".phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz"
+##NONE
 ###
 
 echo "[>..] test running this module with data in test/data"
@@ -16,7 +13,7 @@ mkdir -p test/results
 echo "[>>.] results will be created in test/results"
 ## Execute runmk.sh, it will find the basic example in test/data
 ## Move results from test/data to test/results
-## results files are *.vcf
-./runmk.sh \
-&& mv test/data/*.tsv test/results \
+## results files are *.csv
+bash runmk.sh \
+&& mv test/data/*.csv test/results \
 && echo "[>>>] Module Test Successful"

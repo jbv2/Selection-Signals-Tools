@@ -1,0 +1,9 @@
+## mk-calculate-pbs-per-gene
+## Define shell command line which will be used to run scripts.
+MKSHELL="/bin/bash"
+
+%/xp_ehh_results.csv:Q: %/
+	echo "[DEBUG] Concatenating XP-EHH results"
+	awk 'FNR>1 || NR==1' $prereq/*.xpehh.tsv > $target
+	awk 'FNR>1 || NR==1' $prereq/*.xp_ehh_qqman.tsv > $stem/xp_ehh_qqman.csv
+	awk 'FNR>1 || NR==1' $prereq/*.xp_ehh_outliers.tsv > $stem/xp_ehh_outliers.csv

@@ -5,7 +5,7 @@ The RegRNALab presents...
   The "MXB Selection Signals Tool (MXB-SST)"
 - A pipeline that runs iHS and XP-EHH
 ==================================================================
-Version: 0.0.1
+Version: 0.0.2
 Project repository: git clone https://github.com/jbv2/mxb_selection_signals.git
 ==================================================================
 Authors:
@@ -60,7 +60,7 @@ def helpMessage() {
   Define pipeline version
   If you bump the number, remember to bump it in the header description at the begining of this script too
 */
-version = "0.0.1"
+version = "0.0.2"
 
 /*//////////////////////////////
   Define pipeline Name
@@ -242,7 +242,7 @@ process _pre1_extract_autosomes {
 
 
 	output:
-	file "*_chrom*.vcf.gz" into results_pre1_extract_autosomes mode flatten
+	file "*_chrom*.vcf.gz" into results_pre1_extract_autosomes, results_pre1_for_002 mode flatten
 
 	"""
 	export MIN_AF="${params.min_af}"
@@ -254,11 +254,41 @@ process _pre1_extract_autosomes {
 
 }
 
-/* _001_run_ihs_xpehh */
+/* _001_run_ihs */
 /* Gather every vcf */
 results_pre1_extract_autosomes
   .toList()
   .set{ inputs_for_001 }
+
+/* 	Process _001_run_ihs */
+/* Read mkfile module files */
+Channel
+	.fromPath("${workflow.projectDir}/mkmodules/mk-run-ihs/*")
+	.toList()
+	.set{ mkfiles_001 }
+
+process _001_run_ihs {
+
+	publishDir "${results_dir}/_001_run_ihs/",mode:"copy"
+
+	input:
+	file sample from inputs_for_001
+	file mk_files from mkfiles_001
+
+	output:
+	file "*.tsv" into results_001_run_ihs
+
+	"""
+	bash runmk.sh
+	"""
+
+}
+
+/* _002_run_xpehh */
+/* Gather every vcf */
+results_pre1_for_002
+  .toList()
+  .set{ inputs_for_002 }
 
 /* Get parameters into a channel */
 first_pop = Channel.fromPath("${params.first_pop}*")
@@ -274,30 +304,60 @@ first_pop
 .toList()
 .set{ references_for_selection }
 
-/* 	Process _001_run_ihs_xpehh */
+/* 	Process _002_run_xpehh */
 /* Read mkfile module files */
 Channel
-	.fromPath("${workflow.projectDir}/mkmodules/mk-run-ihs-xpehh/*")
+	.fromPath("${workflow.projectDir}/mkmodules/mk-run-xpehh/*")
 	.toList()
-	.set{ mkfiles_001 }
+	.set{ mkfiles_002 }
 
-process _001_run_ihs_xpehh {
+process _002_run_xpehh {
 
-	publishDir "${results_dir}/_001_run_ihs_xpehh/",mode:"copy"
+	publishDir "${results_dir}/_002_run_xpehh/",mode:"symlink"
 
 	input:
-	file sample from inputs_for_001
-	file mk_files from mkfiles_001
+	file sample from inputs_for_002
+	file mk_files from mkfiles_002
 	file refs from references_for_selection
 
 	output:
-	file "*.tsv" into results_001_run_ihs_xpehh
+	file "*.tsv" into results_002_run_xpehh mode flatten
 
 	"""
 	export FIRST_POP="${params.first_pop}"
   export SECOND_POP="${params.second_pop}"
   export STEM_INGROUP="${get_baseName(params.stem_ingroup)}"
   export END_FILE_INGROUP="${params.end_file_ingroup}"
+	bash runmk.sh
+	"""
+
+}
+
+/* _pos1_concatenate_xpehh */
+/* Gather every tsv */
+results_002_run_xpehh
+  .toList()
+  .set{ inputs_for_pos1 }
+
+/* 	Process _pos1_concatenate_xpehh */
+/* Read mkfile module files */
+Channel
+	.fromPath("${workflow.projectDir}/mkmodules/mk-concatenate-xpehh/*")
+	.toList()
+	.set{ mkfiles_pos1 }
+
+process _pos1_concatenate_xpehh {
+
+	publishDir "${results_dir}/_pos1_concatenate_xpehh/",mode:"copy"
+
+	input:
+	file sample from inputs_for_pos1
+	file mk_files from mkfiles_pos1
+
+	output:
+	file "*.csv" into results_pos1_concatenate_xpehh
+
+	"""
 	bash runmk.sh
 	"""
 
