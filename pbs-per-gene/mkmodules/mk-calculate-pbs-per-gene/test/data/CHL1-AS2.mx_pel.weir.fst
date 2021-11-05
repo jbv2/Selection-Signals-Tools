@@ -1,0 +1,1 @@
+../../../mk-get-fst-per-gene/test/results/CHL1-AS2.mx_pel.weir.fst

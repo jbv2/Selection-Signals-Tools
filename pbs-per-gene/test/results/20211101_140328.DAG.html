@@ -1,0 +1,177 @@
+<!--
+  ~ Copyright 2013-2019, Centre for Genomic Regulation (CRG)
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<html>
+
+    <head>
+        <title>Nextflow Cytoscape.js with Dagre</title>
+
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+
+        <script type="text/javascript">
+        var prot = (("https:" == document.location.protocol) ? "https://" : "http://");
+        document.write(unescape("%3Cscript src='" + prot + "code.jquery.com/jquery-2.0.3.min.js' type='text/javascript' %3E%3C/script%3E"));
+        document.write(unescape("%3Cscript src='" + prot + "cdnjs.cloudflare.com/ajax/libs/cytoscape/2.6.12/cytoscape.min.js' type='text/javascript' %3E%3C/script%3E"));
+        document.write(unescape("%3Cscript src='" + prot + "cdn.rawgit.com/cpettitt/dagre/v0.7.4/dist/dagre.min.js' type='text/javascript' %3E%3C/script%3E"));
+        document.write(unescape("%3Cscript src='" + prot + "cdn.rawgit.com/cytoscape/cytoscape.js-dagre/1.1.2/cytoscape-dagre.js' type='text/javascript' %3E%3C/script%3E"));
+        </script>
+
+        <style>
+            body {
+                font-family: helvetica;
+                font-size: 14px;
+            }
+
+            #cy {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                left: 0;
+                top: 0;
+                z-index: 999;
+            }
+
+            h1 {
+                opacity: 0.5;
+                font-size: 1em;
+            }
+        </style>
+
+        <script>
+            $(function(){
+                var cy = window.cy = cytoscape({
+                    container: document.getElementById('cy'),
+                    boxSelectionEnabled: false,
+                    autounselectify: true,
+
+                    layout: {
+                        name: 'dagre'
+                    },
+
+                    style: cytoscape.stylesheet()
+                        .selector( 'node')
+                            .css({
+                                'width': 10,
+                                'height': 10,
+                                'content': 'data(label)',
+                                'text-valign': 'center',
+                                'text-halign': 'center',
+                                'text-opacity': 0.5,
+                            })
+                        .selector('node.PROCESS')
+                            .css({
+                                'width': 100,
+                                'height': 50,
+                                'text-opacity': 0.9,
+                                'background-color': '#009911'
+                            })
+                        .selector('node.OPERATOR')
+                            .css({
+                                'background-color': '#11479e',
+                                'text-halign': 'right',
+                            })
+                        .selector('node.ORIGIN')
+                            .css({
+                                'background-color': '#999999',
+                                'text-halign': 'right',
+                            })
+                        .selector('node.TERMINATION')
+                            .css({
+                                'background-color': '#999999',
+                                'text-halign': 'right',
+                            })
+                        .selector('edge')
+                            .css({
+                                'content': 'data(label)',
+                                'text-opacity': 0.5,
+                                'width': 4,
+                                'target-arrow-shape': 'triangle',
+                                'line-color': '#9dbaea',
+                                'target-arrow-color': '#9dbaea'
+                            }),
+
+elements: {
+nodes: [
+{ data: { id: 'p0', label: 'Channel.fromPath'}, classes: 'ORIGIN' },
+{ data: { id: 'p1', label: 'toList'}, classes: 'OPERATOR' },
+{ data: { id: 'p2', label: 'Channel.fromPath'}, classes: 'ORIGIN' },
+{ data: { id: 'p3', label: 'Channel.fromPath'}, classes: 'ORIGIN' },
+{ data: { id: 'p4', label: 'Channel.fromPath'}, classes: 'ORIGIN' },
+{ data: { id: 'p5', label: 'Channel.fromPath'}, classes: 'ORIGIN' },
+{ data: { id: 'p6', label: 'Channel.fromPath'}, classes: 'ORIGIN' },
+{ data: { id: 'p7', label: 'Channel.fromPath'}, classes: 'ORIGIN' },
+{ data: { id: 'p8', label: 'Channel.fromPath'}, classes: 'ORIGIN' },
+{ data: { id: 'p9', label: 'mix'}, classes: 'OPERATOR' },
+{ data: { id: 'p10', label: 'toList'}, classes: 'OPERATOR' },
+{ data: { id: 'p11', label: 'Channel.fromPath'}, classes: 'ORIGIN' },
+{ data: { id: 'p12', label: 'toList'}, classes: 'OPERATOR' },
+{ data: { id: 'p13', label: '_pre1_get_fst_per_gene'}, classes: 'PROCESS' },
+{ data: { id: 'p14', label: 'mix'}, classes: 'OPERATOR' },
+{ data: { id: 'p15', label: 'toList'}, classes: 'OPERATOR' },
+{ data: { id: 'p16', label: 'Channel.fromPath'}, classes: 'ORIGIN' },
+{ data: { id: 'p17', label: 'toList'}, classes: 'OPERATOR' },
+{ data: { id: 'p18', label: '_pre2_wrangling_per_gene'}, classes: 'PROCESS' },
+{ data: { id: 'p19', label: 'mix'}, classes: 'OPERATOR' },
+{ data: { id: 'p20', label: 'toList'}, classes: 'OPERATOR' },
+{ data: { id: 'p21', label: 'Channel.fromPath'}, classes: 'ORIGIN' },
+{ data: { id: 'p22', label: 'toList'}, classes: 'OPERATOR' },
+{ data: { id: 'p23', label: '_001_calculate_pbs_per_gene'}, classes: 'PROCESS' },
+{ data: { id: 'p24'}, classes: 'NODE' },
+],
+edges: [
+{ data: { source: 'p0', target: 'p1'} },
+{ data: { source: 'p1', target: 'p13', label: 'vcf_inputs' } },
+{ data: { source: 'p2', target: 'p9', label: 'ref_gene' } },
+{ data: { source: 'p3', target: 'p9', label: 'pop_target' } },
+{ data: { source: 'p4', target: 'p9', label: 'pop_ingroup' } },
+{ data: { source: 'p5', target: 'p9', label: 'pop_outgroup' } },
+{ data: { source: 'p6', target: 'p9', label: 'pop_1' } },
+{ data: { source: 'p7', target: 'p9', label: 'pop_2' } },
+{ data: { source: 'p8', target: 'p9', label: 'pop_3' } },
+{ data: { source: 'p9', target: 'p10'} },
+{ data: { source: 'p10', target: 'p13', label: 'pops' } },
+{ data: { source: 'p11', target: 'p12'} },
+{ data: { source: 'p12', target: 'p13', label: 'mkfiles_pre1' } },
+{ data: { source: 'p13', target: 'p14', label: 'results_pre1_get_fst_per_gene_log' } },
+{ data: { source: 'p13', target: 'p19', label: 'results_pre1a_for_001' } },
+{ data: { source: 'p13', target: 'p14', label: 'results_pre1_get_fst_per_gene_fst' } },
+{ data: { source: 'p13', target: 'p19', label: 'results_pre1b_for_002' } },
+{ data: { source: 'p14', target: 'p15'} },
+{ data: { source: 'p15', target: 'p18', label: 'inputs_for_pre2' } },
+{ data: { source: 'p16', target: 'p17'} },
+{ data: { source: 'p17', target: 'p18', label: 'mkfiles_pre2' } },
+{ data: { source: 'p18', target: 'p19', label: 'results_pre2_wrangling_per_gene' } },
+{ data: { source: 'p19', target: 'p20'} },
+{ data: { source: 'p20', target: 'p23', label: 'inputs_for_001' } },
+{ data: { source: 'p21', target: 'p22'} },
+{ data: { source: 'p22', target: 'p23', label: 'mkfiles_001' } },
+{ data: { source: 'p10', target: 'p23', label: 'pops' } },
+{ data: { source: 'p23', target: 'p24', label: 'results_001_calculate_pbs_per_gene' } },
+],
+},
+
+                });
+
+            });
+        </script>
+    </head>
+
+    <body>
+        <h1>Nextflow Cytoscape.js with Dagre</h1>
+        <div id="cy"></div>
+    </body>
+
+</html>
