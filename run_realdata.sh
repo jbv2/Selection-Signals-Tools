@@ -1,7 +1,7 @@
 echo -e "======\n Real data NF execution \n======" \
 && rm -rf real-data/results/ \
 && nextflow run mxb_selection_signals_tool.nf \
-	--vcffile "real-data/data/MXBiobank_complete_phase.vcf.gz" \
+	--vcffile "real-data/data/MXBiobank_complete_phase_ancestral.vcf.gz" \
 	--min_af "0.05" \
 	--geno "0.05" \
 	--min_alleles "2" \
