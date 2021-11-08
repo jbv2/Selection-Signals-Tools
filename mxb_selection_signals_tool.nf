@@ -257,6 +257,7 @@ process _pre1_extract_autosomes {
 /* _001_run_ihs */
 /* Gather every vcf */
 results_pre1_extract_autosomes
+	.flatten()
   .toList()
   .set{ inputs_for_001 }
 
