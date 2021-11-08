@@ -11,6 +11,6 @@ echo -e "======\n NF execution \n======" \
   --pop_3 "pel_chb" \
   --output_dir real-data/results/ensembl \
 	-resume \
-	-with-report test/results/`date +%Y%m%d_%H%M%S`_report.html \
-	-with-dag test/results/`date +%Y%m%d_%H%M%S`.DAG.html \
+	-with-report real-data/results/`date +%Y%m%d_%H%M%S`_report.html \
+	-with-dag real-data/results/`date +%Y%m%d_%H%M%S`.DAG.html \
 && echo -e "======\n MXB Population Branch Statistics per feature calculator: Pipeline SUCCESSFUL \n======"

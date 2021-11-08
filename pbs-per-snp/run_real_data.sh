@@ -1,0 +1,15 @@
+echo -e "======\n NF execution \n======" \
+&& rm -rf real-data/results/ \
+&& nextflow run pbs_per_snp.nf \
+	--vcffile "real-data/data/MXB_1KG_PEL_CHB.vcf.gz" \
+	--pop_outgroup "real-data/reference/pop_chb" \
+	--pop_ingroup "real-data/reference/pop_pel" \
+	--pop_target "real-data/reference/pop_mxb" \
+	--pop_1 "mxb_chb" \
+	--pop_2 "mxb_pel" \
+	--pop_3 "pel_chb" \
+	--output_dir real-data/results/ \
+	-resume \
+	-with-report real-data/results/`date +%Y%m%d_%H%M%S`_report.html \
+	-with-dag real-data/results/`date +%Y%m%d_%H%M%S`.DAG.html \
+	&& echo -e "======\n MXB Population Branch Statistics per SNP: Pipeline SUCCESSFUL \n======"
