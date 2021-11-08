@@ -1,0 +1,30 @@
+## mk-get-fst-per-snp
+## Define shell command line which will be used to run scripts.
+MKSHELL="/bin/bash"
+
+%.weir.fst:Q: %.vcf.gz $POP_OUTGROUP $POP_INGROUP %.chbvsmxl.weir.fst %.pelvsmxl.weir.fst
+	echo "[DEBUG] Calculating Fst for $POP_INGROUP and $POP_OUTGROUP"
+	bgzip -d $stem.vcf.gz \
+	&& vcftools --vcf $stem.vcf \
+			 --weir-fst-pop $POP_OUTGROUP \
+			 --weir-fst-pop $POP_INGROUP \
+			 --out $POP_3 \
+	&& bgzip $stem.vcf
+
+%.chbvsmxl.weir.fst:Q: %.vcf.gz $POP_OUTGROUP %.pelvsmxl.weir.fst
+	echo "[DEBUG] Calculating Fst for $POP_TARGET and $POP_OUTGROUP"
+	bgzip -d $stem.vcf.gz \
+	&& vcftools --vcf $stem.vcf \
+			 --weir-fst-pop $POP_OUTGROUP \
+			 --weir-fst-pop $POP_TARGET \
+			 --out $POP_1 \
+	&& bgzip $stem.vcf
+
+%.pelvsmxl.weir.fst:Q: %.vcf.gz $POP_INGROUP
+	echo "[DEBUG] Calculating Fst for $POP_TARGET and $POP_INGROUP"
+	bgzip -d $stem.vcf.gz \
+	&& vcftools --vcf $stem.vcf \
+			 --weir-fst-pop $POP_INGROUP \
+			 --weir-fst-pop $POP_TARGET \
+			 --out $POP_2 \
+	&& bgzip $stem.vcf
