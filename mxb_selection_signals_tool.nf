@@ -242,7 +242,8 @@ process _pre1_extract_autosomes {
 
 
 	output:
-	file "*_chrom*.vcf.gz" into results_pre1_extract_autosomes, results_pre1_for_002 mode flatten
+	file "*_chrom*.vcf.gz" into results_pre1_extract_autosomes mode flatten
+	file "*_chrom*.vcf.gz" into results_pre1_for_002 
 
 	"""
 	export MIN_AF="${params.min_af}"
