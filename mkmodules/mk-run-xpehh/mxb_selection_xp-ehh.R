@@ -53,7 +53,7 @@ hh <- data2haplohh(hap_file = paste(stem,
                      polarize_vcf = FALSE,
                      vcf_reader = "data.table",
                      haplotype.in.columns = T,
-                     remove_multiple_markers = T)
+                     remove_multiple_markers = T, chr.name = chrom)
 # perform scan on a single chromosome (calculate iHH values)
 scan <- scan_hh(hh)
 
@@ -65,7 +65,7 @@ hh <- data2haplohh(hap_file = paste(stem_ingroup,
                                     sep = ""),
                      polarize_vcf = FALSE,
                      vcf_reader = "data.table",
-                     remove_multiple_markers = T, haplotype.in.columns = T)
+                     remove_multiple_markers = T, haplotype.in.columns = T, chr.name = chrom)
 # perform scan on a single chromosome (calculate iHH values)
 scan_ingroup <- scan_hh(hh)
 
