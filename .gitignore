@@ -33,6 +33,7 @@ pbs*/mkmodules/*/test/data/*
 
 ## ignore real data dirs
 real-data
+pbs
 
 ## ignore modules marked as REDO - means, in need of refactoring or remaking
 *REDO
