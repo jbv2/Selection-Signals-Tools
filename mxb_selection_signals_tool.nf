@@ -287,9 +287,9 @@ process _001_run_ihs {
 
 /* _002_run_xpehh */
 /* Gather every vcf */
-results_pre1_for_002
-  .toList()
-  .set{ inputs_for_002 }
+// results_pre1_for_002
+//   .toList()
+//   .set{ inputs_for_002 }
 
 /* Get parameters into a channel */
 first_pop = Channel.fromPath("${params.first_pop}*")
@@ -317,7 +317,7 @@ process _002_run_xpehh {
 	publishDir "${results_dir}/_002_run_xpehh/",mode:"symlink"
 
 	input:
-	file sample from inputs_for_002
+	file sample from results_pre1_for_002
 	file mk_files from mkfiles_002
 	file refs from references_for_selection
 
