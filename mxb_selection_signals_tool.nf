@@ -254,36 +254,36 @@ process _pre1_extract_autosomes {
 
 }
 
-/* _001_run_ihs */
-/* Gather every vcf */
-results_pre1_extract_autosomes
-	.flatten()
-  .toList()
-  .set{ inputs_for_001 }
-
-/* 	Process _001_run_ihs */
-/* Read mkfile module files */
-Channel
-	.fromPath("${workflow.projectDir}/mkmodules/mk-run-ihs/*")
-	.toList()
-	.set{ mkfiles_001 }
-
-process _001_run_ihs {
-
-	publishDir "${results_dir}/_001_run_ihs/",mode:"copy"
-
-	input:
-	file sample from inputs_for_001
-	file mk_files from mkfiles_001
-
-	output:
-	file "*.tsv" into results_001_run_ihs
-
-	"""
-	bash runmk.sh
-	"""
-
-}
+// /* _001_run_ihs */
+// /* Gather every vcf */
+// results_pre1_extract_autosomes
+// 	.flatten()
+//   .toList()
+//   .set{ inputs_for_001 }
+//
+// /* 	Process _001_run_ihs */
+// /* Read mkfile module files */
+// Channel
+// 	.fromPath("${workflow.projectDir}/mkmodules/mk-run-ihs/*")
+// 	.toList()
+// 	.set{ mkfiles_001 }
+//
+// process _001_run_ihs {
+//
+// 	publishDir "${results_dir}/_001_run_ihs/",mode:"copy"
+//
+// 	input:
+// 	file sample from inputs_for_001
+// 	file mk_files from mkfiles_001
+//
+// 	output:
+// 	file "*.tsv" into results_001_run_ihs
+//
+// 	"""
+// 	bash runmk.sh
+// 	"""
+//
+// }
 
 /* _002_run_xpehh */
 /* Gather every vcf */
