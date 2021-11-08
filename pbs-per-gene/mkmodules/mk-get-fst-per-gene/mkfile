@@ -4,8 +4,7 @@ MKSHELL="/bin/bash"
 
 %.weir.fst: %.vcf.gz $REF_GENE $POP_OUTGROUP $POP_INGROUP %.chbvsmxl.weir.fst %.pelvsmxl.weir.fst
 	echo "[DEBUG] Calculating Fst for $POP_INGROUP and $POP_OUTGROUP"
-	bgzip -d $stem.vcf.gz \
-	&& while read line
+	while read line
 	do
 		echo "[DEBUG] working in line: $line"
 		start=$(echo "$line" | cut -f3)
@@ -22,8 +21,7 @@ MKSHELL="/bin/bash"
 
 %.chbvsmxl.weir.fst: %.vcf.gz $REF_GENE $POP_OUTGROUP %.pelvsmxl.weir.fst
 	echo "[DEBUG] Calculating Fst for $POP_TARGET and $POP_OUTGROUP"
-	bgzip -d $stem.vcf.gz \
-	&& while read line
+	while read line
 	do
 		echo "[DEBUG] working in line: $line"
 		start=$(echo "$line" | cut -f3)
@@ -35,8 +33,7 @@ MKSHELL="/bin/bash"
 			 --weir-fst-pop $POP_TARGET \
 			 --out $segment.$POP_1 --chr $chromosome \
 			 --from-bp $start --to-bp $end 2>&1 | tee > $segment.$POP_1.log
-	done < $REF_GENE \
-	&& bgzip $stem.vcf
+	done < $REF_GENE
 
 %.pelvsmxl.weir.fst:Q: %.vcf.gz $REF_GENE $POP_INGROUP
 	echo "[DEBUG] Calculating Fst for $POP_TARGET and $POP_INGROUP"
@@ -53,5 +50,4 @@ MKSHELL="/bin/bash"
 			 --weir-fst-pop $POP_TARGET \
 			 --out $segment.$POP_2 --chr $chromosome \
 			 --from-bp $start --to-bp $end 2>&1 | tee > $segment.$POP_2.log
-	done < $REF_GENE \
-	&& bgzip $stem.vcf
+	done < $REF_GENE 
