@@ -242,7 +242,8 @@ process _pre1_extract_autosomes {
 
 
 	output:
-	file "*_chrom*.vcf.gz" into results_pre1_extract_autosomes, results_pre1_for_002
+	file "*_chrom*.vcf.gz" into results_pre1_for_002
+	file "*_chrom*.vcf.gz" into results_pre1_extract_autosomes mode flatten
 
 	"""
 	export MIN_AF="${params.min_af}"
@@ -257,7 +258,6 @@ process _pre1_extract_autosomes {
 // /* _001_run_ihs */
 // /* Gather every vcf */
 // results_pre1_extract_autosomes
-// 	.flatten()
 //   .toList()
 //   .set{ inputs_for_001 }
 //
