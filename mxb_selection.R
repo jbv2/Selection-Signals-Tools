@@ -16,14 +16,14 @@ args = commandArgs(trailingOnly=TRUE)
 ## Load args´
 ## For debuggin only.
 ## Comment for running in mk
-# args[1] <- 21
-# args[2] <- 22
-# args[3] <- "./test"
-# args[4] <- ".vcf.gz"
-# args[5] <- "MXB"
-# args[6] <- "PEL"
-# args[7] <- "./test.ihs.tsv"
-# args[8] <- "./test_1000g_"
+args[1] <- 1
+args[2] <- 22
+args[3] <- "./test"
+args[4] <- ".vcf.gz"
+args[5] <- "MXB"
+args[6] <- "PEL"
+args[7] <- "./test.ihs.tsv"
+args[8] <- "./test_1000g_"
 
 ##Assign args
 first_chrom <- args[1]
