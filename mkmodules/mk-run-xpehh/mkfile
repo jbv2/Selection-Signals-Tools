@@ -10,7 +10,7 @@ MKSHELL=/bin/bash
 	if [[ $number_lines > 0 ]]
 	then
 	end_file=".vcf.gz"
-	chromosome=$(basename "$prereq" "$end_file" | sed "s#[a-z]*_chrom##")
+	chromosome=$(basename "$prereq" "$end_file" | sed "s#[a-z]*.*_chrom##")
 	echo "[DEBUG] Running XP-EHH for chromosome $chromosome"
 	#echo "$chromosome $stem $end_file $FIRST_POP $SECOND_POP $target $STEM_INGROUP $END_FILE_INGROUP"
 	Rscript --vanilla mxb_selection_xp-ehh.R $chromosome $stem $end_file $FIRST_POP $SECOND_POP $target $STEM_INGROUP $END_FILE_INGROUP
