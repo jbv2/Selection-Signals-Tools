@@ -15,9 +15,9 @@ MKSHELL="/bin/bash"
 			 --weir-fst-pop $POP_OUTGROUP \
 			 --weir-fst-pop $POP_INGROUP \
 			 --out $segment.$POP_3 --chr $chromosome \
-			 --from-bp $start --to-bp $end 2>&1 | tee > $segment"."$POP_3".log"
+			 --from-bp $start --to-bp $end 2>&1 | tee > "$segment"."$POP_3".log
 	done < $REF_GENE  \
-	&& bgzip --threads 10$stem.vcf
+	&& bgzip --threads 10 $stem.vcf
 
 %.chbvsmxl.weir.fst: %.vcf.gz $REF_GENE $POP_OUTGROUP %.pelvsmxl.weir.fst
 	echo "[DEBUG] Calculating Fst for $POP_TARGET and $POP_OUTGROUP"
@@ -32,7 +32,7 @@ MKSHELL="/bin/bash"
 			 --weir-fst-pop $POP_OUTGROUP \
 			 --weir-fst-pop $POP_TARGET \
 			 --out $segment.$POP_1 --chr $chromosome \
-			 --from-bp $start --to-bp $end 2>&1 | tee > $segment"."$POP_1".log"
+			 --from-bp $start --to-bp $end 2>&1 | tee > "$segment"."$POP_1".log
 	done < $REF_GENE
 
 %.pelvsmxl.weir.fst:Q: %.vcf.gz $REF_GENE $POP_INGROUP
@@ -49,5 +49,5 @@ MKSHELL="/bin/bash"
 			 --weir-fst-pop $POP_INGROUP \
 			 --weir-fst-pop $POP_TARGET \
 			 --out $segment.$POP_2 --chr $chromosome \
-			 --from-bp $start --to-bp $end 2>&1 | tee > $segment"."$POP_2".log"
+			 --from-bp $start --to-bp $end 2>&1 | tee > "$segment"."$POP_2".log
 	done < $REF_GENE

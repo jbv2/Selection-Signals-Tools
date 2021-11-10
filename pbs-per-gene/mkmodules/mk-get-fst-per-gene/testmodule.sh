@@ -3,7 +3,7 @@
 
 ###
 ## environment variable setting
-export REF_GENE="./mart_export_hg19.txt"
+export REF_GENE="./mart_export.txt"
 export POP_OUTGROUP="./pop_chb"
 export POP_INGROUP="./pop_pel"
 export POP_TARGET="./pop_mxl"
