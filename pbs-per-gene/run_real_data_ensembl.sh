@@ -8,7 +8,7 @@ echo -e "======\n NF execution \n======" \
 	--pop_target "real-data/reference/pop_mxb" \
   --pop_1 "mxb_chb" \
   --pop_2 "mxb_ibs" \
-  --pop_3 "pel_chb" \
+  --pop_3 "ibs_chb" \
   --output_dir real-data/results/ensembl \
 	-resume \
 	-with-report real-data/results/`date +%Y%m%d_%H%M%S`_report.html \

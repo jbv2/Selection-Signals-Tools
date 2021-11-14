@@ -8,7 +8,7 @@ echo -e "======\n NF execution \n======" \
 	--pop_target "real-data/reference/pop_mxb" \
   --pop_1 "mx_chb" \
   --pop_2 "mx_ibs" \
-  --pop_3 "pel_chb" \
+  --pop_3 "ibs_chb" \
   --output_dir real-data/results/genehancer \
 	-resume \
 	-with-report test/results/`date +%Y%m%d_%H%M%S`_report.html \
