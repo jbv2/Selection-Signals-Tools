@@ -1,7 +1,7 @@
 echo -e "======\n NF execution \n======" \
 && rm -rf real-data/results/ \
 && nextflow run pbs_per_snp.nf \
-	--vcffile "real-data/data/MXB_1KG_IBS_CHB.vcf.gz" \
+	--vcffile "real-data/data/MXB_1KG_IBS_CHB.vcf.gzMXB_1KG_IBS_CHB_aa_derived.vcf.gz" \
 	--pop_outgroup "real-data/reference/pop_chb" \
 	--pop_ingroup "real-data/reference/pop_ibs" \
 	--pop_target "real-data/reference/pop_mxb" \
