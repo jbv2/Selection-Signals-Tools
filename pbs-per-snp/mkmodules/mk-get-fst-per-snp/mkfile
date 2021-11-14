@@ -7,7 +7,7 @@ MKSHELL="/bin/bash"
 	vcftools --vcf $stem.vcf \
 			 --weir-fst-pop $POP_OUTGROUP \
 			 --weir-fst-pop $POP_INGROUP \
-			 --out $POP_3 \
+			 --out $stem.$POP_3 \
 	&& bgzip --threads 10 $stem.vcf
 
 %.chbvsmxl.weir.fst:Q: %.vcf.gz $POP_OUTGROUP %.pelvsmxl.weir.fst
@@ -15,7 +15,7 @@ MKSHELL="/bin/bash"
 	vcftools --vcf $stem.vcf \
 			 --weir-fst-pop $POP_OUTGROUP \
 			 --weir-fst-pop $POP_TARGET \
-			 --out $POP_1
+			 --out $stem.$POP_1
 
 %.pelvsmxl.weir.fst:Q: %.vcf.gz $POP_INGROUP
 	echo "[DEBUG] Calculating Fst for $POP_TARGET and $POP_INGROUP"
@@ -23,4 +23,4 @@ MKSHELL="/bin/bash"
 	&& vcftools --vcf $stem.vcf \
 			 --weir-fst-pop $POP_INGROUP \
 			 --weir-fst-pop $POP_TARGET \
-			 --out $POP_2
+			 --out $stem.$POP_2

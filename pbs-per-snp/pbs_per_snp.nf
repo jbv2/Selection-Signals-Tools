@@ -5,7 +5,7 @@ The RegRNALab presents...
   The "MXB Population Branch Statistics per SNP calculator"
 - A pipeline to run PBS per SNP
 ==================================================================
-Version: 0.0.1
+Version: 0.0.2
 Project repository: git clone https://github.com/jbv2/mxb_selection_signals.git
 ==================================================================
 Authors:
@@ -19,7 +19,8 @@ Authors:
 Pipeline Processes In Brief:
 .
 Pre-processing:
-  _pre1_get_fst_per_snp
+	_pre1_extract_autosomes
+  _pre2_get_fst_per_snp
 
 Core-processing:
   _001_calculate_pbs_per_snp
@@ -61,7 +62,7 @@ def helpMessage() {
   Define pipeline version
   If you bump the number, remember to bump it in the header description at the begining of this script too
 */
-version = "0.0.1"
+version = "0.0.2"
 
 /*//////////////////////////////
   Define pipeline Name
@@ -228,26 +229,57 @@ pop_target
 .toList()
 .set{ pops }
 
-
-/* _pre1_get_fst_per_snp */
+/* _pre1_extract_autosomes */
 /* Read mkfile module files */
 Channel
-	.fromPath("${workflow.projectDir}/mkmodules/mk-get-fst-per-snp/*")
+	.fromPath("${workflow.projectDir}/mkmodules/mk-extract-autosomes/*")
 	.toList()
 	.set{ mkfiles_pre1 }
 
-process _pre1_get_fst_per_snp {
+process _pre1_extract_autosomes {
 
-	publishDir "${intermediates_dir}/_pre1_get-fst-per-snp/",mode:"symlink"
+	publishDir "${intermediates_dir}/_pre1_extract_autosomes/",mode:"symlink"
 
 	input:
-	file vcf from vcf_inputs
-	file populations from pops
+	file sample from vcf_inputs
 	file mk_files from mkfiles_pre1
 
 
 	output:
-  file "*.fst" into results_pre1_get_fst_per_snp_fst
+	file "*_chrom*.vcf.gz" into results_pre1_extract_autosomes mode flatten
+
+	"""
+	bash runmk.sh
+	"""
+
+}
+
+
+/* _pre2_get_fst_per_snp */
+
+/* Gather every vcf */
+results_pre1_extract_autosomes
+  .toList()
+  .set{ inputs_for_pre2 }
+
+/* Read mkfile module files */
+Channel
+	.fromPath("${workflow.projectDir}/mkmodules/mk-get-fst-per-snp/*")
+	.toList()
+	.set{ mkfiles_pre2 }
+
+process _pre2_get_fst_per_snp {
+
+	publishDir "${intermediates_dir}/_pre2_get-fst-per-snp/",mode:"symlink"
+
+	input:
+	file vcf from inputs_for_pre2
+	file populations from pops
+	file mk_files from mkfiles_pre2
+
+
+	output:
+  file "*.fst" into results_pre2_get_fst_per_snp_fst
 
 	"""
   export POP_TARGET="${get_baseName(params.pop_target)}"
@@ -273,7 +305,7 @@ process _001_calculate_pbs_per_snp {
 	publishDir "${results_dir}/_001_calculate_pbs_per_snp/",mode:"copy"
 
 	input:
-	file fst from results_pre1_get_fst_per_snp_fst
+	file fst from results_pre2_get_fst_per_snp_fst
 	file mk_files from mkfiles_001
 	file refs from pops
 

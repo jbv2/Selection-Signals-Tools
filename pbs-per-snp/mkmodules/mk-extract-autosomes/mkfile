@@ -1,0 +1,11 @@
+### mk-extract-autosomes
+#	| bcftools view -m2 -M2 -v snps
+## Define shell command line which will be used to run scripts.
+## Manually have to change F_MISSING
+MKSHELL=/bin/bash
+
+%.CHECKPOINT.tmp:V: %.vcf.gz
+	for i in {1..22};
+	do bcftools view --regions $i $prereq \
+	| bgzip > $stem"_chrom"$i.vcf.gz ;
+	done

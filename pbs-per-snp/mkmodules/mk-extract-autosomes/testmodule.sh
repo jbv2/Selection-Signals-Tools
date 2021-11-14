@@ -3,12 +3,10 @@
 
 ###
 ## environment variable setting
-export POP_OUTGROUP="test/reference/pop_chb"
-export POP_INGROUP="test/reference/pop_pel"
-export POP_TARGET="test/reference/pop_mxl"
-export POP_1="mx_chb"
-export POP_2="mx_pel"
-export POP_3="pel_chb"
+export MIN_AF="0"
+export GENO="0.001"
+export MIN_ALLELES="0"
+export MAX_ALLELES="100"
 ###
 
 echo "[>..] test running this module with data in test/data"
@@ -18,7 +16,7 @@ mkdir -p test/results
 echo "[>>.] results will be created in test/results"
 ## Execute runmk.sh, it will find the basic example in test/data
 ## Move results from test/data to test/results
-## results files are *.log
-bash runmk.sh \
-&& mv test/data/*.log* test/data/*.fst test/results \
+## results files are *.vcf
+./runmk.sh \
+&& mv test/data/*_chrom*.vcf.gz test/results \
 && echo "[>>>] Module Test Successful"
