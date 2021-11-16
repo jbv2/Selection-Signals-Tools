@@ -8,4 +8,5 @@ MKSHELL="/bin/bash"
 	#echo "$filename"
 	#echo $dir
 	echo "[DEBUG] wrangling data for $filename "
+	#ls test/data/*AC066595.1.mx_pel.weir.fst | sed "s#[a-z].*_chrom[0-9]*.##" | sort -u
 	Rscript --vanilla wrangling.R $dir/ $filename
