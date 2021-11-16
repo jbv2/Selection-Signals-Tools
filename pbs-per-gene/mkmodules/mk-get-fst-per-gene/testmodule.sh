@@ -3,10 +3,10 @@
 
 ###
 ## environment variable setting
-export REF_GENE="./mart_export.txt"
-export POP_OUTGROUP="./pop_chb"
-export POP_INGROUP="./pop_pel"
-export POP_TARGET="./pop_mxl"
+export REF_GENE="test/reference/mart_export.txt"
+export POP_OUTGROUP="test/reference/pop_chb"
+export POP_INGROUP="test/reference/pop_pel"
+export POP_TARGET="test/reference/pop_mxl"
 export POP_1="mx_chb"
 export POP_2="mx_pel"
 export POP_3="pel_chb"

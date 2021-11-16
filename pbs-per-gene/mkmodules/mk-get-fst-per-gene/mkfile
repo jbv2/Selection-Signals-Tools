@@ -11,7 +11,7 @@ MKSHELL="/bin/bash"
 		end=$(echo "$line" | cut -f4)
 		chromosome=$(echo "$line" | cut -f1)
 		segment=$(echo "$line" | cut -f5)
-		if [[ "$stem" =~ .*_chrom"$chromosome" ]] ; then
+		if [[ "$stem" == .*_chrom"$chromosome" ]] ; then
 			vcftools --vcf $stem.vcf \
 				 --weir-fst-pop $POP_OUTGROUP \
 				 --weir-fst-pop $POP_INGROUP \
@@ -30,7 +30,7 @@ MKSHELL="/bin/bash"
 		end=$(echo "$line" | cut -f4)
 		chromosome=$(echo "$line" | cut -f1)
 		segment=$(echo "$line" | cut -f5)
-		if [[ "$stem" =~ .*_chrom"$chromosome" ]] ; then
+		if [[ "$stem" == .*_chrom"$chromosome" ]] ; then
 			vcftools --vcf $stem.vcf \
 			 	--weir-fst-pop $POP_OUTGROUP \
 			 	--weir-fst-pop $POP_TARGET \
@@ -50,7 +50,7 @@ MKSHELL="/bin/bash"
 		end=$(echo "$line" | cut -f4)
 		chromosome=$(echo "$line" | cut -f1)
 		segment=$(echo "$line" | cut -f5)
-		if [[ "$stem" =~ .*_chrom"$chromosome" ]] ; then
+		if [[ "$stem" == .*_chrom"$chromosome" ]] ; then
 			vcftools --vcf $stem.vcf \
 			 	--weir-fst-pop $POP_INGROUP \
 			 	--weir-fst-pop $POP_TARGET \
