@@ -22,5 +22,4 @@ echo "[>>.] results will be created in test/results"
 ## results files are *.log
 bash runmk.sh \
 && mv ./*.log ./*.fst test/results/ \
-&& rm ref_gene \
 && echo "[>>>] Module Test Successful"
