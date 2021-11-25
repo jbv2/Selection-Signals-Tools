@@ -303,7 +303,7 @@ process _pre2_get_fst_per_gene {
 Channel
 	.fromPath("${workflow.projectDir}/mkmodules/mk-wrangling-per-gene/*")
 	.toList()
-	.view
+	.view()
 	//.set{ mkfiles_pre3 }
 
 // process _pre3_wrangling_per_gene {
