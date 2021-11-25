@@ -248,7 +248,7 @@ process _pre1_extract_autosomes {
 
 
 	output:
-	file "*_chrom*.vcf.gz" into results_pre1_extract_autosomes 
+	file "*_chrom*.vcf.gz" into results_pre1_extract_autosomes
 
 	"""
 	bash runmk.sh
@@ -295,39 +295,41 @@ process _pre2_get_fst_per_gene {
   results_pre2_get_fst_per_gene_fst
   .mix(results_pre2_get_fst_per_gene_log)
   .toList()
-  .set{ inputs_for_pre3 }
+	.view()
+  //.set{ inputs_for_pre3 }
 
 /* 	Process _pre3_wrangling_per_gene */
 /* Read mkfile module files */
 Channel
 	.fromPath("${workflow.projectDir}/mkmodules/mk-wrangling-per-gene/*")
 	.toList()
-	.set{ mkfiles_pre3 }
+	.view
+	//.set{ mkfiles_pre3 }
 
-process _pre3_wrangling_per_gene {
-
-	publishDir "${intermediates_dir}/_pre3_wrangling_per_gene/",mode:"symlink"
-
-	input:
-	file fst from inputs_for_pre3
-	file mk_files from mkfiles_pre3
-
-	output:
-	file "*.csv" into results_pre3_wrangling_per_gene mode flatten
-
-	"""
-	bash runmk.sh
-	"""
-
-}
+// process _pre3_wrangling_per_gene {
+//
+// 	publishDir "${intermediates_dir}/_pre3_wrangling_per_gene/",mode:"symlink"
+//
+// 	input:
+// 	file fst from inputs_for_pre3
+// 	file mk_files from mkfiles_pre3
+//
+// 	output:
+// 	file "*.csv" into results_pre3_wrangling_per_gene mode flatten
+//
+// 	"""
+// 	bash runmk.sh
+// 	"""
+//
+// }
 
 /* _001_calculate_pbs_per_gene */
 /* Gather fst results and csvs */
-	results_pre3_wrangling_per_gene
-  .mix(results_pre2b_for_002
-	,results_pre2a_for_001)
-  .toList()
-  .set{ inputs_for_001 }
+	// results_pre3_wrangling_per_gene
+  // .mix(results_pre2b_for_002
+	// ,results_pre2a_for_001)
+  // .toList()
+  // .set{ inputs_for_001 }
 
 /* mix channels for params */
 	// ref_gene
@@ -338,31 +340,31 @@ process _pre3_wrangling_per_gene {
 	// .set{ pops_2 }
 
 
-/* 	Process _001_calculate_pbs_per_gene */
-/* Read mkfile module files */
-Channel
-	.fromPath("${workflow.projectDir}/mkmodules/mk-calculate-pbs-per-gene/*")
-	.toList()
-	.set{ mkfiles_001 }
-
-process _001_calculate_pbs_per_gene {
-
-	publishDir "${results_dir}/_001_calculate_pbs_per_gene/",mode:"copy"
-
-	input:
-	file fst from inputs_for_001
-	file mk_files from mkfiles_001
-	file refs from pops
-
-	output:
-	file "*.tsv" into results_001_calculate_pbs_per_gene
-
-	"""
-	export REF_GENE="${get_baseName(params.ref_gene)}"
-  export POP_1="${params.pop_1}"
-  export POP_2="${params.pop_2}"
-  export POP_3="${params.pop_3}"
-	bash runmk.sh
-	"""
-
-}
+// /* 	Process _001_calculate_pbs_per_gene */
+// /* Read mkfile module files */
+// Channel
+// 	.fromPath("${workflow.projectDir}/mkmodules/mk-calculate-pbs-per-gene/*")
+// 	.toList()
+// 	.set{ mkfiles_001 }
+//
+// process _001_calculate_pbs_per_gene {
+//
+// 	publishDir "${results_dir}/_001_calculate_pbs_per_gene/",mode:"copy"
+//
+// 	input:
+// 	file fst from inputs_for_001
+// 	file mk_files from mkfiles_001
+// 	file refs from pops
+//
+// 	output:
+// 	file "*.tsv" into results_001_calculate_pbs_per_gene
+//
+// 	"""
+// 	export REF_GENE="${get_baseName(params.ref_gene)}"
+//   export POP_1="${params.pop_1}"
+//   export POP_2="${params.pop_2}"
+//   export POP_3="${params.pop_3}"
+// 	bash runmk.sh
+// 	"""
+//
+// }
