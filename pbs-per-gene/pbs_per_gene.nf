@@ -292,11 +292,9 @@ process _pre2_get_fst_per_gene {
 
 /* _pre3_wrangling_per_gene*/
 /* Gather fst results */
-  // results_pre2_get_fst_per_gene_fst
-  // .mix(results_pre2_get_fst_per_gene_log)
-  // .toList()
-	// //.flatten()
-  // .set{ inputs_for_pre3 }
+  results_pre2_get_fst_per_gene
+	.collect()
+  .set{ inputs_for_pre3 }
 
 /* 	Process _pre3_wrangling_per_gene */
 /* Read mkfile module files */
@@ -311,7 +309,7 @@ process _pre3_wrangling_per_gene {
 	publishDir "${intermediates_dir}/_pre3_wrangling_per_gene/",mode:"symlink"
 
 	input:
-	file fst from results_pre2_get_fst_per_gene
+	file fst from inputs_for_pre3
 	file mk_files from mkfiles_pre3
 
 	output:
