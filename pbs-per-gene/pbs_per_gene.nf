@@ -295,7 +295,7 @@ process _pre2_get_fst_per_gene {
   results_pre2_get_fst_per_gene_fst
   .mix(results_pre2_get_fst_per_gene_log)
   .toList()
-	.flatten()
+	//.flatten()
   .set{ inputs_for_pre3 }
 
 /* 	Process _pre3_wrangling_per_gene */
