@@ -274,8 +274,8 @@ process _pre2_get_fst_per_gene {
 
 
 	output:
-	file "*.log" into results_pre2_get_fst_per_gene_log, results_pre2a_for_001
-  file "*.fst" into results_pre2_get_fst_per_gene_fst, results_pre2b_for_002
+	file "*.log" into results_pre2_get_fst_per_gene_log, results_pre2a_for_001 mode flatten
+  file "*.fst" into results_pre2_get_fst_per_gene_fst, results_pre2b_for_002 mode flatten
 
 	"""
 	export REF_GENE="${get_baseName(params.ref_gene)}"
@@ -295,6 +295,7 @@ process _pre2_get_fst_per_gene {
   results_pre2_get_fst_per_gene_fst
   .mix(results_pre2_get_fst_per_gene_log)
   .toList()
+	.flatten()
   .set{ inputs_for_pre3 }
 
 /* 	Process _pre3_wrangling_per_gene */
