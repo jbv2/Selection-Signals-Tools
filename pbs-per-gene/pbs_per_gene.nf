@@ -315,7 +315,7 @@ process _pre3_wrangling_per_gene {
 	file mk_files from mkfiles_pre3
 
 	output:
-	file "*.csv" into results_pre3_wrangling_per_gene 
+	file "*.csv" into results_pre3_wrangling_per_gene
 
 	"""
 	bash runmk.sh
@@ -328,7 +328,7 @@ process _pre3_wrangling_per_gene {
 	results_pre3_wrangling_per_gene
   .mix(results_pre2b_for_002
 	,results_pre2a_for_001)
-  .toList()
+  .collect()
   .set{ inputs_for_001 }
 
 /* mix channels for params */
