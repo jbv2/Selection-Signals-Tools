@@ -275,7 +275,7 @@ process _pre2_get_fst_per_gene {
 
 	output:
 	file "*.log" into results_pre2_get_fst_per_gene_log, results_pre2a_for_001
-  file "*.fst" into results_pre2_get_fst_per_gene_fst, results_pre2b_for_002 
+  file "*.fst" into results_pre2_get_fst_per_gene_fst, results_pre2b_for_002
 
 	"""
 	export REF_GENE="${get_baseName(params.ref_gene)}"
@@ -316,6 +316,8 @@ process _pre3_wrangling_per_gene {
 
 	output:
 	file "*.csv" into results_pre3_wrangling_per_gene
+
+	beforeScript 'ulimit -Ss unlimited
 
 	"""
 	bash runmk.sh
