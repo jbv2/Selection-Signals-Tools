@@ -274,7 +274,7 @@ process _pre2_get_fst_per_gene {
 
 
 	output:
-	file "*" into results_pre2_get_fst_per_gene, results_pre2_for_001 //mode flatten
+	file "*" into results_pre2_get_fst_per_gene, results_pre2_for_001 mode flatten
 	//mode flatten
 
 	"""
