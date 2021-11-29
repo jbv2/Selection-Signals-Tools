@@ -274,8 +274,8 @@ process _pre2_get_fst_per_gene {
 
 
 	output:
-	file "*.log" into results_pre2_get_fst_per_gene_log, results_pre2a_for_001 mode flatten
-  file "*.fst" into results_pre2_get_fst_per_gene_fst, results_pre2b_for_002 mode flatten
+	file "*.log" into results_pre2_get_fst_per_gene_log, results_pre2a_for_001 //mode flatten
+  file "*.fst" into results_pre2_get_fst_per_gene_fst, results_pre2b_for_002 //mode flatten
 
 	"""
 	export REF_GENE="${get_baseName(params.ref_gene)}"
