@@ -317,7 +317,7 @@ process _pre3_wrangling_per_gene {
 	output:
 	file "*.csv" into results_pre3_wrangling_per_gene
 
-	beforeScript 'ulimit -Ss unlimited
+	beforeScript 'ulimit -Ss unlimited'
 
 	"""
 	bash runmk.sh
