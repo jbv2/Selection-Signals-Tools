@@ -326,7 +326,7 @@ process _pre3_wrangling_per_gene {
 /* _001_calculate_pbs_per_gene */
 /* Gather fst results and csvs */
 	results_pre3_wrangling_per_gene
-  .mix(results_pre2a_for_001)
+  .mix(results_pre2_for_001)
   .toList()
   .set{ inputs_for_001 }
 
