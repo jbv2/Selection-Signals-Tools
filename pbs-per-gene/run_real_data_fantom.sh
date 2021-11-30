@@ -1,7 +1,7 @@
 echo -e "======\n NF execution \n======" \
 && rm -rf real-data/results/fantom \
 && nextflow run pbs_per_gene.nf \
-	--vcffile "real-data/MXB_1KG_IBS_CHB_aa_derived.vcf.gz" \
+	--vcffile "real-data/data/MXB_1KG_IBS_CHB_aa_derived.vcf.gz" \
 	--ref_gene "real-data/reference/fantom_export.tsv" \
 	--pop_outgroup "real-data/reference/pop_chb" \
 	--pop_ingroup "real-data/reference/pop_ibs" \
