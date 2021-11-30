@@ -1,1 +1,0 @@
-../../../mk-get-fst-per-gene/test/results/AC066595.2.mx_pel.weir.fst

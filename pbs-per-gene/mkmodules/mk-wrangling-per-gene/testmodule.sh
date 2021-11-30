@@ -6,14 +6,14 @@
 #NONE
 ###
 
-echo "[>..] test running this module with data in test/data"
-## Remove old test results, if any; then create test/reults dir
-rm -rf test/results
-mkdir -p test/results
-echo "[>>.] results will be created in test/results"
-## Execute runmk.sh, it will find the basic example in test/data
+echo "[>..] test running this module with data in real-data/data"
+## Remove old test results, if any; then create real-data/reults dir
+rm -rf real-data/results
+mkdir -p real-data/results
+echo "[>>.] results will be created in real-data/results"
+## Execute runmk.sh, it will find the basic example in real-data/data
 ## Move results from test/data to test/results
 ## results files are *.csv
 bash runmk.sh \
-&& mv test/data/*.csv test/results \
+&& mv real-data/data/*.csv real-data/results \
 && echo "[>>>] Module Test Successful"

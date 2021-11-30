@@ -1,1 +1,0 @@
-../../../mk-get-fst-per-gene/test/results/LINC01986.pel_chb.weir.fst
