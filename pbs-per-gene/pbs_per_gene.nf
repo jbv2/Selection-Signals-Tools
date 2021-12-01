@@ -362,6 +362,8 @@ process _001_calculate_pbs_per_gene {
 	output:
 	file "*.tsv" into results_001_calculate_pbs_per_gene
 
+	beforeScript 'ulimit -Ss unlimited'
+	
 	"""
 	export REF_GENE="${get_baseName(params.ref_gene)}"
   export POP_1="${params.pop_1}"
