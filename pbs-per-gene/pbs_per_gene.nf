@@ -327,11 +327,10 @@ process _pre3_wrangling_per_gene {
 
 /* _001_calculate_pbs_per_gene */
 /* Gather fst results and csvs */
-	results_pre3_wrangling_per_gene
-  .mix(results_pre2b_for_002
-	,results_pre2a_for_001)
-  .collect()
-  .set{ inputs_for_001 }
+	// results_pre2b_for_002
+  // .mix(results_pre2a_for_001)
+  // .collect()
+  // .set{ inputs_for_001 }
 
 /* mix channels for params */
 	// ref_gene
@@ -354,7 +353,9 @@ process _001_calculate_pbs_per_gene {
 	publishDir "${results_dir}/_001_calculate_pbs_per_gene/",mode:"copy"
 
 	input:
-	file fst from inputs_for_001
+	file fst from results_pre2b_for_002
+	file log from results_pre2a_for_001
+	file csv from results_pre3_wrangling_per_gene
 	file mk_files from mkfiles_001
 	file refs from pops
 
