@@ -353,8 +353,6 @@ process _001_calculate_pbs_per_gene {
 	publishDir "${results_dir}/_001_calculate_pbs_per_gene/",mode:"copy"
 
 	input:
-	file fst from results_pre2b_for_002
-	file log from results_pre2a_for_001
 	file csv from results_pre3_wrangling_per_gene
 	file mk_files from mkfiles_001
 	file refs from pops
@@ -362,8 +360,6 @@ process _001_calculate_pbs_per_gene {
 	output:
 	file "*.tsv" into results_001_calculate_pbs_per_gene
 
-	beforeScript 'ulimit -Ss unlimited'
-	
 	"""
 	export REF_GENE="${get_baseName(params.ref_gene)}"
   export POP_1="${params.pop_1}"
