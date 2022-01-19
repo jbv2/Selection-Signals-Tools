@@ -111,5 +111,5 @@ wgscan.xpehh.qqman <- wgscan.xpehh.qqman %>%
 write.table(x = wgscan.xpehh.qqman,
             file = xpehh_qqman_table,
             quote = F,
-            sep = "\t")
+            sep = "\t", row.names = F)
 

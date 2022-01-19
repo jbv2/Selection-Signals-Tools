@@ -92,4 +92,4 @@ wgscan.ihs.qqman <- wgscan.ihs.qqman %>%
   filter(P != "NA")
 
 ## Saving qqman data as table
-write.table(x = wgscan.ihs.qqman, file = ihs_qqman_table, quote = F, sep = "\t")
+write.table(x = wgscan.ihs.qqman, file = ihs_qqman_table, quote = F, sep = "\t", row.names = F)
