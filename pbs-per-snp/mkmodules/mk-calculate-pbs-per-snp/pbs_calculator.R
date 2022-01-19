@@ -33,7 +33,7 @@ args <- commandArgs(trailingOnly = T)
 # Uncomment for debbuging
 # Comment for production mode only
 # args[1] <- "./test/data/"  ## Dir with CSVs of fst results
-# args[2] <- "./test/data/pbs.tsv" ## Output
+# args[2] <- "./test/results/pbs.tsv" ## Output
 # args[3] <- "mx_chb"
 # args[4] <- "mx_pel"
 # args[5] <- "pel_chb"
@@ -106,10 +106,14 @@ fst_pop1_colname <- paste(pop1_pattern,"_fst", sep = "")
 ## Uploading fst files
 fst_pop1 <- fst_reader(filename = csv.names[1], pops = pop1 ) %>%
   rename(!!pop1_pattern := WEIR_AND_COCKERHAM_FST) 
+fst_pop1[is.na(fst_pop1)] = 0
 fst_pop2 <- fst_reader(filename = csv.names[2], pops = pop2 ) %>%
   rename(!!pop2_pattern := WEIR_AND_COCKERHAM_FST)
+fst_pop2[is.na(fst_pop2)] = 0
 fst_pop3 <- fst_reader(filename = csv.names[3], pops = pop3 ) %>%
   rename(!!pop3_pattern := WEIR_AND_COCKERHAM_FST)
+fst_pop3[is.na(fst_pop3)] = 0
+
 
 
 # Make a list of your dataframes and join them all together
@@ -118,7 +122,7 @@ fst_pop1_pop2 <- inner_join(x = fst_pop1,
                             by = c("CHROM","POS"))
 all_fst <- left_join(x = fst_pop1_pop2,
                      y = fst_pop3, 
-                     by = c("CHROM", "POS"))
+                     by = c("CHROM", "POS")) 
 
 # Making a function for PBS calculation
 ## As reported in Ávila-Arcos(2019)
