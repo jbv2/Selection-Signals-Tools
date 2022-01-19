@@ -5,7 +5,7 @@ echo -e "======\n NF execution \n======" \
 	--ref_gene "real-data/reference/fantom_export.tsv" \
 	--pop_ingroup "real-data/reference/pop_chb" \
 	--pop_outgroup "real-data/reference/pop_ibs" \
-	--pop_target "real-data/reference/pop90_mxb" \
+	--pop_target "real-data/reference/pop95_mxb" \
   --pop_2 "mxb_chb" \
   --pop_1 "mxb_ibs" \
   --pop_3 "ibs_chb" \
