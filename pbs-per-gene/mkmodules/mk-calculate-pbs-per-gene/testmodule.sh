@@ -3,9 +3,9 @@
 
 ###
 ## environment variable setting
-export REF_GENE="real-data/reference/fantom_export.tsv"
-export POP_1="mx_chb"
-export POP_2="mx_ibs"
+export REF_GENE="real-data/reference/genehancer_export.tsv"
+export POP_2="mxb_chb"
+export POP_1="mxb_ibs"
 export POP_3="ibs_chb"
 ###
 
