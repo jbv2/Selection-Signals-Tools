@@ -258,7 +258,7 @@ process _pre1_extract_autosomes {
 
 
 	output:
-	file "*_chrom*.vcf.gz" into results_pre1_extract_autosomes_for_A, results_pre1_extract_autosomes_for_B
+	file "*_chrom*.vcf.gz" into results_pre1_extract_autosomes_for_A, results_pre1_extract_autosomes_for_B, results_pre1_extract_autosomes_for_C, results_pre1_extract_autosomes_for_D, results_pre1_extract_autosomes_for_E
 
 	"""
 	bash runmk.sh
