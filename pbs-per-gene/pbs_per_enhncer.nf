@@ -381,33 +381,6 @@ process _pre2_get_fst_per_gene_D {
 
 }
 
-process _pre2_get_fst_per_gene_B {
-
-	publishDir "${intermediates_dir}/_pre2_get-fst-per-gene_B/",mode:"symlink"
-
-	input:
-	file vcf from results_pre1_extract_autosomes_for_B
-	file populations from pops
-	file mk_files from mkfiles_pre2
-
-
-	output:
-	file "*.log" into results_pre2_get_fst_per_gene_log_B, results_pre2a_for_001_B
-  file "*.fst" into results_pre2_get_fst_per_gene_fst_B, results_pre2b_for_002_B
-
-	"""
-	export REF_GENE="${get_baseName(params.ref_gene_B)}"
-  export POP_TARGET="${get_baseName(params.pop_target)}"
-  export POP_INGROUP="${get_baseName(params.pop_ingroup)}"
-  export POP_OUTGROUP="${get_baseName(params.pop_outgroup)}"
-  export POP_1="${params.pop_1}"
-  export POP_2="${params.pop_2}"
-  export POP_3="${params.pop_3}"
-	bash runmk.sh
-	"""
-
-}
-
 process _pre2_get_fst_per_gene_E {
 
 	publishDir "${intermediates_dir}/_pre2_get-fst-per-gene_E/",mode:"symlink"
