@@ -3,8 +3,8 @@
 MKSHELL="/bin/bash"
 
 %/pbs_results.tsv:Q: %/
-	head -2 $prereq$POP_1"_A.csv" > $prereq$POP_1".csv"; tail -n +3 -q $prereq$POP_1*.csv >> $prereq$POP_1".csv"
-	head -2 $prereq$POP_2"_A.csv" > $prereq$POP_2".csv"; tail -n +3 -q $prereq$POP_2*.csv >> $prereq$POP_2".csv"
-	head -2 $prereq$POP_3"_A.csv" > $prereq$POP_3".csv"; tail -n +3 -q $prereq$POP_3*.csv >> $prereq$POP_3".csv" 
+	head -1 $prereq$POP_1"_A.csv" > $prereq$POP_1".csv"; tail -n +3 -q $prereq$POP_1*.csv >> $prereq$POP_1".csv"
+	head -1 $prereq$POP_2"_A.csv" > $prereq$POP_2".csv"; tail -n +3 -q $prereq$POP_2*.csv >> $prereq$POP_2".csv"
+	head -1 $prereq$POP_3"_A.csv" > $prereq$POP_3".csv"; tail -n +3 -q $prereq$POP_3*.csv >> $prereq$POP_3".csv" 
 	echo "[DEBUG] Calculating PBS per gene for $(ls $prereq*.csv)"
 	Rscript --vanilla pbs_calculator.R $prereq $target $REF_GENE $POP_1 $POP_2 $POP_3
