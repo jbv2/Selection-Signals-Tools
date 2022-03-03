@@ -7,6 +7,8 @@ echo -e "======\n NF execution \n======" \
 	--ref_gene_C "real-data/reference/genehancer_export_C.tsv" \
 	--ref_gene_D "real-data/reference/genehancer_export_D.tsv" \
 	--ref_gene_E "real-data/reference/genehancer_export_E.tsv" \
+	--ref_gene_F "real-data/reference/genehancer_export_F.tsv" \
+	--ref_gene_G "real-data/reference/genehancer_export_G.tsv" \
 	--pop_ingroup "real-data/reference/pop90_gulf" \
 	--pop_outgroup "real-data/reference/pop_chb" \
 	--pop_target "real-data/reference/pop90_central" \

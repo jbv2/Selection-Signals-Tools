@@ -217,6 +217,8 @@ ref_gene_B = Channel.fromPath("${params.ref_gene_B}*")
 ref_gene_C = Channel.fromPath("${params.ref_gene_C}*")
 ref_gene_D = Channel.fromPath("${params.ref_gene_D}*")
 ref_gene_E = Channel.fromPath("${params.ref_gene_E}*")
+ref_gene_F = Channel.fromPath("${params.ref_gene_F}*")
+ref_gene_G = Channel.fromPath("${params.ref_gene_G}*")
 ref_gene = Channel.fromPath("${params.ref_gene}*")
 pop_target = Channel.fromPath("${params.pop_target}*")
 pop_ingroup = Channel.fromPath("${params.pop_ingroup}*")
@@ -232,6 +234,8 @@ ref_gene_A
 	,ref_gene_C
 	,ref_gene_D
 	,ref_gene_E
+	,ref_gene_F
+	,ref_gene_G
 	,ref_gene
 	,pop_ingroup
   ,pop_outgroup
@@ -258,7 +262,7 @@ process _pre1_extract_autosomes {
 
 
 	output:
-	file "*_chrom*.vcf.gz" into results_pre1_extract_autosomes_for_A, results_pre1_extract_autosomes_for_B, results_pre1_extract_autosomes_for_C, results_pre1_extract_autosomes_for_D, results_pre1_extract_autosomes_for_E
+	file "*_chrom*.vcf.gz" into results_pre1_extract_autosomes_for_A, results_pre1_extract_autosomes_for_B, results_pre1_extract_autosomes_for_C, results_pre1_extract_autosomes_for_D, results_pre1_extract_autosomes_for_E, results_pre1_extract_autosomes_for_F, results_pre1_extract_autosomes_for_G
 
 	"""
 	bash runmk.sh
@@ -408,6 +412,60 @@ process _pre2_get_fst_per_gene_E {
 
 }
 
+process _pre2_get_fst_per_gene_F {
+
+	publishDir "${intermediates_dir}/_pre2_get-fst-per-gene_F/",mode:"symlink"
+
+	input:
+	file vcf from results_pre1_extract_autosomes_for_F
+	file populations from pops
+	file mk_files from mkfiles_pre2
+
+
+	output:
+	file "*.log" into results_pre2_get_fst_per_gene_log_F, results_pre2a_for_001_F
+  file "*.fst" into results_pre2_get_fst_per_gene_fst_F, results_pre2b_for_002_F
+
+	"""
+	export REF_GENE="${get_baseName(params.ref_gene_F)}"
+  export POP_TARGET="${get_baseName(params.pop_target)}"
+  export POP_INGROUP="${get_baseName(params.pop_ingroup)}"
+  export POP_OUTGROUP="${get_baseName(params.pop_outgroup)}"
+  export POP_1="${params.pop_1}"
+  export POP_2="${params.pop_2}"
+  export POP_3="${params.pop_3}"
+	bash runmk.sh
+	"""
+
+}
+
+process _pre2_get_fst_per_gene_G {
+
+	publishDir "${intermediates_dir}/_pre2_get-fst-per-gene_G/",mode:"symlink"
+
+	input:
+	file vcf from results_pre1_extract_autosomes_for_G
+	file populations from pops
+	file mk_files from mkfiles_pre2
+
+
+	output:
+	file "*.log" into results_pre2_get_fst_per_gene_log_G, results_pre2a_for_001_G
+  file "*.fst" into results_pre2_get_fst_per_gene_fst_G, results_pre2b_for_002_G
+
+	"""
+	export REF_GENE="${get_baseName(params.ref_gene_G)}"
+  export POP_TARGET="${get_baseName(params.pop_target)}"
+  export POP_INGROUP="${get_baseName(params.pop_ingroup)}"
+  export POP_OUTGROUP="${get_baseName(params.pop_outgroup)}"
+  export POP_1="${params.pop_1}"
+  export POP_2="${params.pop_2}"
+  export POP_3="${params.pop_3}"
+	bash runmk.sh
+	"""
+
+}
+
 /* _pre3_wrangling_per_gene*/
 /* Read mkfile module files */
 Channel
@@ -521,6 +579,48 @@ process _pre3_wrangling_per_gene_E {
 
 }
 
+process _pre3_wrangling_per_gene_F {
+
+	publishDir "${intermediates_dir}/_pre3_wrangling_per_gene_F/",mode:"symlink"
+
+	input:
+	file fst from results_pre2_get_fst_per_gene_fst_F
+	file log from results_pre2_get_fst_per_gene_log_F
+	file mk_files from mkfiles_pre3
+
+	output:
+	file "*.csv" into results_pre3_wrangling_per_gene_F
+
+	beforeScript 'ulimit -Ss unlimited'
+
+	"""
+	bash runmk.sh
+	rename 's/.csv/_F.csv/' *
+	"""
+
+}
+
+process _pre3_wrangling_per_gene_G {
+
+	publishDir "${intermediates_dir}/_pre3_wrangling_per_gene_G/",mode:"symlink"
+
+	input:
+	file fst from results_pre2_get_fst_per_gene_fst_G
+	file log from results_pre2_get_fst_per_gene_log_G
+	file mk_files from mkfiles_pre3
+
+	output:
+	file "*.csv" into results_pre3_wrangling_per_gene_G
+
+	beforeScript 'ulimit -Ss unlimited'
+
+	"""
+	bash runmk.sh
+	rename 's/.csv/_G.csv/' *
+	"""
+
+}
+
 /* 	Process _001_calculate_pbs_per_gene */
 /* Read mkfile module files */
 Channel
@@ -538,6 +638,8 @@ process _001_calculate_pbs_per_gene {
 	file csvC from results_pre3_wrangling_per_gene_C
 	file csvD from results_pre3_wrangling_per_gene_D
 	file csvE from results_pre3_wrangling_per_gene_E
+	file csvE from results_pre3_wrangling_per_gene_F
+	file csvE from results_pre3_wrangling_per_gene_G
 	file mk_files from mkfiles_001
 	file refs from pops
 
