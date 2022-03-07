@@ -1,9 +1,7 @@
 echo -e "======\n Testing NF execution \n======" \
 && rm -rf test/results/ \
-&& nextflow run pbs_per_enhncer.nf \
+&& nextflow run pbs_per_gene.nf \
 	--vcffile "test/data/out.recode.vcf.gz" \
-	--ref_gene_A "test/reference/mart_export.txt" \
-	--ref_gene_B "test/reference/test_fantom.tsv" \
 	--ref_gene "test/reference/test_genehancer.tsv" \
 	--pop_outgroup "test/reference/pop_chb" \
 	--pop_ingroup "test/reference/pop_pel" \
