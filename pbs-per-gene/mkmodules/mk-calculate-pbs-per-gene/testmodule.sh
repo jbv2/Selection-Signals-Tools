@@ -4,9 +4,9 @@
 ###
 ## environment variable setting
 export REF_GENE="real-data/reference/genehancer_export.tsv"
-export POP_2="central_gulf"
-export POP_1="central_chb"
-export POP_3="gulf_chb"
+export POP_2="mxb_chb"
+export POP_1="mxb_ibs"
+export POP_3="chb_ibs"
 ###
 
 echo "[>..] test running this module with data in real-data/data"
@@ -17,5 +17,5 @@ echo "[>>.] results will be created in real-data/results"
 ## Move results from test/data to test/results
 ## results files are *.tsv
 bash runmk.sh \
-&& mv real-data/data/*.tsv real-data/results/central_gulf.tsv \
+&& mv real-data/data/*.tsv real-data/results/mxb_chb_ibs_gh_jun6.tsv \
 && echo "[>>>] Module Test Successful"
