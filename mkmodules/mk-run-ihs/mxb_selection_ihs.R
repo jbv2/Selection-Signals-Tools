@@ -19,7 +19,7 @@ args = commandArgs(trailingOnly=TRUE)
  # args[3] <- "test/data/test_chrom" ## stem
  # args[4] <- ".vcf.gz" # extension
  # args[5] <- "./MXBiobank_complete_phase.ihs.tsv" ##output
- 
+
 ##Assign args
 first_chrom <- args[1]
 last_chrom <- args[2]
@@ -73,14 +73,14 @@ wgscan.ihs[["ihs"]][["IHS"]] <- abs(wgscan.ihs[["ihs"]][["IHS"]])
 wgascan.ihs.ihs <- wgscan.ihs[["ihs"]]
 wgscan.ihs.frequency_class <- wgscan.ihs[["frequency.class"]]
 
-write.table(x = wgascan.ihs.ihs, file = ihs_table, quote = F, sep = "\t")
-write.table(x = cr.mxb_ihs, file = outliers_ihs, quote = F, sep = "\t")
+write.table(x = wgascan.ihs.ihs, file = ihs_table, quote = F, sep = "\t", row.names = F)
+write.table(x = cr.mxb_ihs, file = outliers_ihs, quote = F, sep = "\t", row.names = F)
 
 ##Use qqman for plotting
 ihs <- wgscan.ihs$ihs
 # create new data frame
 wgscan.ihs.qqman <- data.frame(
-  CHR = as.integer(factor(ihs$CHR, 
+  CHR = as.integer(factor(ihs$CHR,
                           levels = unique(ihs$CHR))),
   # chromosomes as integers
   BP = ihs$POSITION,         # base pairs
