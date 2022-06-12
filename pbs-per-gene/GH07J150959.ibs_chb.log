@@ -1,0 +1,23 @@
+
+VCFtools - 0.1.17
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+	--gzvcf real-data/data/MXB_1KG_IBS_CHB_aa_derived_90NatAm.vcf.gz
+	--chr 7
+	--to-bp 150663432
+	--weir-fst-pop real-data/reference/pop_ibs
+	--weir-fst-pop real-data/reference/pop_chb
+	--keep real-data/reference/pop_ibs
+	--keep real-data/reference/pop_chb
+	--out ./GH07J150959.ibs_chb
+	--from-bp 150656246
+
+Using zlib version: 1.2.7
+Keeping individuals in 'keep' list
+After filtering, kept 85 out of 1183 Individuals
+Outputting Weir and Cockerham Fst estimates.
+Weir and Cockerham mean Fst estimate: 0.11802
+Weir and Cockerham weighted Fst estimate: 0.17355
+After filtering, kept 6 out of a possible 2364237 Sites
+Run Time = 78.00 seconds

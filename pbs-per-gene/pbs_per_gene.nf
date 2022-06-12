@@ -307,7 +307,7 @@ Channel
 
 process _pre3_wrangling_per_gene {
 
-	publishDir "${intermediates_dir}/_pre3_wrangling_per_gene/",mode:"symlink"
+	publishDir "${intermediates_dir}/_pre3_wrangling_per_gene/",mode:"copy"
 
 	input:
 	file fst from results_pre2_get_fst_per_gene_fst

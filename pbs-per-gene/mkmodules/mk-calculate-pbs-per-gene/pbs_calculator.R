@@ -23,7 +23,7 @@ library("dplyr")
 library("ggplot2")
 library("ggrepel")
 library("tidyr")
-library("cowplot")
+#library("cowplot")
 library("stringr")
 library("patchwork")
 
@@ -32,12 +32,12 @@ args <- commandArgs(trailingOnly = T)
 
 # Uncomment for debbuging
 # Comment for production mode only
-# args[1] <- "./test/data/"  ## Dir with CSVs of fst results
-# args[2] <- "./test/data/pbs.tsv" ## Output
-# args[3] <- "test/reference/mart_export.txt" #Reference with genes
-# args[4] <- "mx_chb"
-# args[5] <- "mx_pel"
-# args[6] <- "pel_chb"
+# args[1] <- "/data/users/jballe/mxbiobank/mxb_selection_signals/pbs-per-gene/mkmodules/mk-calculate-pbs-per-gene/real-data/data/"  ## Dir with CSVs of fst results
+# args[2] <- "/data/users/jballe/mxbiobank/mxb_selection_signals/pbs-per-gene/mkmodules/mk-calculate-pbs-per-gene/real-data/data/pbs.tsv" ## Output
+# args[3] <- "/data/users/jballe/mxbiobank/mxb_selection_signals/pbs-per-gene/mkmodules/mk-calculate-pbs-per-gene/real-data/reference/genehancer_export.tsv" #Reference with genes
+# args[4] <- "mxb_ibs"
+# args[5] <- "mxb_chb"
+# args[6] <- "chb_ibs"
 
 ## Place args into named object
 file_dir <- args[1]
@@ -66,10 +66,10 @@ pop1 <- as.list(strsplit(csv.names[1], "/") [[1]])
 pop1_saved <- as.character(pop1[length(pop1)])
 
 pop2 <- as.list(strsplit(csv.names[2], "/") [[1]])
-pop2_saved <- as.character(pop1[length(pop2)])
+pop2_saved <- as.character(pop2[length(pop2)])
 
 pop3 <- as.list(strsplit(csv.names[3], "/") [[1]])
-pop3_saved <- as.character(pop1[length(pop3)])
+pop3_saved <- as.character(pop3[length(pop3)])
 
 ## Segment for avoiding random
 ## Pop1 must be 1 vs 3: i.e.: Native Mexican vs CHB
@@ -107,9 +107,9 @@ if (str_detect(string = pop1_saved, pattern = pop3_pattern) == "TRUE") {
 }
 
 ## Uploading fst files
-fst_pop1 <- fst_reader(filename = csv.names[1], pops = pop1 ) %>% select(-Gene)
-fst_pop2 <- fst_reader(filename = csv.names[2], pops = pop2 ) %>% select(-Gene)
-fst_pop3 <- fst_reader(filename = csv.names[3], pops = pop3 ) %>% select(-Gene)
+fst_pop1 <- fst_reader(filename = paste0(file_dir,pop1), pops = pop1 ) %>% select(-Gene)
+fst_pop2 <- fst_reader(filename = paste0(file_dir,pop2), pops = pop2 ) %>% select(-Gene)
+fst_pop3 <- fst_reader(filename = paste0(file_dir,pop3), pops = pop3 ) %>% select(-Gene)
 
 
 # Make a list of your dataframes and join them all together
@@ -143,7 +143,7 @@ pbsresults<-pbs.f(pop1_out = all_fst[1],
 pbsresults_2 <-all_fst[,2:6]
 pbsresults_2 <-cbind(pbsresults_2 ,pbsresults)
 pbsresults_2 <- pbsresults_2 %>% 
-  rename(PBS_value = paste0(pop1,".Fst.x"))
+  rename(PBS_value = paste0(pop1,".Fst"))
 
 #set negative pbs values to 0 for convenience
 pbsresults_2$PBS_value[which(pbsresults_2$PBS_value<0)]<-0

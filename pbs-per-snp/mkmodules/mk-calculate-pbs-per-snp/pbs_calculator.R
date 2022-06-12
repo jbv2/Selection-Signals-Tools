@@ -32,11 +32,11 @@ args <- commandArgs(trailingOnly = T)
 
 # Uncomment for debbuging
 # Comment for production mode only
-# args[1] <- "./test/data/"  ## Dir with CSVs of fst results
-# args[2] <- "./test/results/pbs.tsv" ## Output
-# args[3] <- "mx_chb"
-# args[4] <- "mx_pel"
-# args[5] <- "pel_chb"
+# args[1] <- "../mxb_selection_signals/pbs-per-snp/real-data/results90/MXB-PBSsnp-intermediate/_pre2_get-fst-per-snp/"  ## Dir with CSVs of fst results
+# args[2] <- "../mxb_selection_signals/pbs-per-snp//real-data/results90/MXB-PBSsnp-results/_001_calculate_pbs_per_snp/pbs.tsv" ## Output
+# args[3] <- "mxb_ibs"
+# args[4] <- "mxb_chb"
+# args[5] <- "ibs_chb"
 
 ## Place args into named object
 file_dir <- args[1]
@@ -104,13 +104,13 @@ if (str_detect(string = pop1_saved, pattern = pop3_pattern) == "TRUE") {
 fst_pop1_colname <- paste(pop1_pattern,"_fst", sep = "")
 
 ## Uploading fst files
-fst_pop1 <- fst_reader(filename = csv.names[1], pops = pop1 ) %>%
+fst_pop1 <- fst_reader(filename = paste0(file_dir,pop1), pops = pop1 ) %>%
   rename(!!pop1_pattern := WEIR_AND_COCKERHAM_FST) 
 fst_pop1[is.na(fst_pop1)] = 0
-fst_pop2 <- fst_reader(filename = csv.names[2], pops = pop2 ) %>%
+fst_pop2 <- fst_reader(filename = paste0(file_dir,pop2), pops = pop2 ) %>%
   rename(!!pop2_pattern := WEIR_AND_COCKERHAM_FST)
 fst_pop2[is.na(fst_pop2)] = 0
-fst_pop3 <- fst_reader(filename = csv.names[3], pops = pop3 ) %>%
+fst_pop3 <- fst_reader(filename = paste0(file_dir,pop3), pops = pop3 ) %>%
   rename(!!pop3_pattern := WEIR_AND_COCKERHAM_FST)
 fst_pop3[is.na(fst_pop3)] = 0
 
