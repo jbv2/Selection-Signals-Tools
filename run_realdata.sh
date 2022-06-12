@@ -1,7 +1,6 @@
 echo -e "======\n Real data NF execution \n======" \
-&& rm -rf real-data/results/ \
 && nextflow run mxb_selection_signals_tool.nf \
-	--vcffile "real-data/data/MXBiobank_complete_phase_ancestral.vcf.gz" \
+	--vcffile "real-data/data/MXBiobank_complete_phase_ancestral_90NatAm.vcf.gz" \
 	--min_af "0.05" \
 	--geno "0.05" \
 	--min_alleles "2" \
@@ -9,8 +8,8 @@ echo -e "======\n Real data NF execution \n======" \
   --first_pop "MXB" \
   --second_pop "PEL" \
   --stem_ingroup "real-data/reference/PEL.chr" \
-  --end_file_ingroup ".phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes_no_duplicated.vcf.gz" \
-  --output_dir real-data/results \
+  --end_file_ingroup ".phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes_33.vcf.gz" \
+  --output_dir real-data/results90 \
 	-resume \
 	-with-report real-data/results/`date +%Y%m%d_%H%M%S`_report.html \
 	-with-dag real-data/results/`date +%Y%m%d_%H%M%S`.DAG.html \
