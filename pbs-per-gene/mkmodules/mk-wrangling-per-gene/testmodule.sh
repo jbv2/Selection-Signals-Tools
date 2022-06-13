@@ -15,5 +15,5 @@ echo "[>>.] results will be created in real-data/results"
 ## Move results from test/data to test/results
 ## results files are *.csv
 bash runmk.sh \
-&& mv real-data/data/*.csv real-data/mxb_chb_ibs \
+&& mv real-data/data/*.csv real-data/mxb_chb_ibs_derived \
 && echo "[>>>] Module Test Successful"

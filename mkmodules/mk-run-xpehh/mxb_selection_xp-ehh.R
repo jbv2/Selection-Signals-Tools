@@ -89,11 +89,11 @@ cr.mxb_xp_ehh <- calc_candidate_regions(xpehh.mxb_pel,
 write.table(x = xpehh.mxb_pel,
             file = xpehh_table,
             quote = F,
-            sep = "\t")
+            sep = "\t", row.names = F)
 write.table(x = cr.mxb_xp_ehh,
             file = outliers_xpehh,
             quote = F,
-            sep = "\t")
+            sep = "\t", row.names = F)
 
 # create new data frame for qqman
 wgscan.xpehh.qqman <- data.frame(
@@ -112,4 +112,3 @@ write.table(x = wgscan.xpehh.qqman,
             file = xpehh_qqman_table,
             quote = F,
             sep = "\t", row.names = F)
-
