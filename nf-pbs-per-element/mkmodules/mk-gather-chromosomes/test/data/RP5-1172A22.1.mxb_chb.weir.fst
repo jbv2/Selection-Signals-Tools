@@ -1,0 +1,1 @@
+../../../mk-get-fst-for-target_ingroup-element/test/results/RP5-1172A22.1.mxb_chb.weir.fst

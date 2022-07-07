@@ -1,0 +1,24 @@
+
+VCFtools - 0.1.16
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+	--gzvcf ./test/data/test_data_chrom22.vcf.gz
+	--chr 22
+	--to-bp 41809946
+	--weir-fst-pop test/reference/ibs.pop
+	--weir-fst-pop test/reference/chb.pop
+	--keep test/reference/ibs.pop
+	--keep test/reference/chb.pop
+	--out CATG00000058714.1.chb_ibs
+	--from-bp 41807132
+
+Using zlib version: 1.2.11
+Keeping individuals in 'keep' list
+After filtering, kept 85 out of 1183 Individuals
+Outputting Weir and Cockerham Fst estimates.
+Weir and Cockerham mean Fst estimate: -nan
+Weir and Cockerham weighted Fst estimate: -nan
+After filtering, kept 0 out of a possible 11384 Sites
+No data left for analysis!
+Run Time = 0.00 seconds

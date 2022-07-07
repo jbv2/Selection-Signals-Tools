@@ -1,0 +1,1 @@
+../../../mk-get-fst-for-target_outgroup-element/test/results/AF127577.12.mxb_ibs.weir.fst

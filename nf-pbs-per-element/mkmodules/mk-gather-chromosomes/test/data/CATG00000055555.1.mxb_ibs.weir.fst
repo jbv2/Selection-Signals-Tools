@@ -1,0 +1,1 @@
+../../../mk-get-fst-for-target_outgroup-element/test/results/CATG00000055555.1.mxb_ibs.weir.fst

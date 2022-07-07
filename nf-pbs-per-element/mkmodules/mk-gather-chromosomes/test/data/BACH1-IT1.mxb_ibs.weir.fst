@@ -1,0 +1,1 @@
+../../../mk-get-fst-for-target_outgroup-element/test/results/BACH1-IT1.mxb_ibs.weir.fst
