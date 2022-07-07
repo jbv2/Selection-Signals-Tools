@@ -15,4 +15,4 @@ echo -e "======\n Testing NF execution \n======" \
 	-resume \
 	-with-report test/results/`date +%Y%m%d_%H%M%S`_report.html \
 	-with-dag test/results/`date +%Y%m%d_%H%M%S`.DAG.html \
-&& echo -e "======\n MXB Selection Signals Tool: Basic pipeline TEST SUCCESSFUL \n======"
+&& echo -e "======\n nf-haplotype-selection: Basic pipeline TEST SUCCESSFUL \n======"
