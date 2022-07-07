@@ -24,17 +24,19 @@ args = commandArgs(trailingOnly=TRUE)
 ## Load args
 ## For debuggin only.
 ## Comment for running in mk
-# args[1] <- "test/data/xp_ehh_results.csv"
+# args[1] <- "test/results/ihs_results.csv"
 
 ##Assign args
 input <- args[1]
-output <- gsub(pattern = ".csv", replacement = "_top1.csv", x = input)
+output <- gsub(pattern = ".csv", replacement = "_top1.bed", x = input)
 
-input.df <- read.table(file = input, header = T, sep = "\t", stringsAsFactors = F)
+input.df <- read.table(file = input, header = T, sep = "\t", stringsAsFactors = F) 
 
 ##Filter by p value
 significant <- input.df %>%
-  filter(P < 0.01)
+  filter(P < 0.01) %>%
+  mutate(start=POSITION-1, .after = CHR) %>%
+  select(CHR, start, POSITION, IHS)
 
 ##Save results 
-write.table(x = significant, file = output, quote = F, sep = "\t", row.names = F)
+write.table(x = significant, file = output, quote = F, sep = "\t", row.names = F, col.names = F)

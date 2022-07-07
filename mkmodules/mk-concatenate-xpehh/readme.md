@@ -17,7 +17,7 @@ Concatenate XP-EHH chromosome results and get significant values (p < 0.01).
 
 ### Input(s):
 
-* A `.tsv` file with XP-EHH results. 
+* A `.tsv` file with XP-EHH results.
 Example line(s):
 ```
 CHR     POSITION        XPEHH_MXB_PEL   LOGPVALUE       P       SNP
@@ -35,7 +35,7 @@ CHR     START   END     N_MRK   MEAN_MRK        MAX_MRK N_EXTR_MRK      PERC_EXT
 
 ### Outputs:
 
-* A `.csv` file with XP-EHH results with all chromosomes. 
+* A `.csv` file with XP-EHH results with all chromosomes.
 Example line(s):
 ```
 CHR     POSITION        XPEHH_MXB_PEL   LOGPVALUE       P       SNP
@@ -45,7 +45,7 @@ CHR     POSITION        XPEHH_MXB_PEL   LOGPVALUE       P       SNP
 
 * A `.outliers.csv` file with the outliers with all chromosomes.
 
-* A `*top1.csv` file with XP-EHH values according threshold. 
+* A `*top1.bed` file with XP-EHH values according threshold. Columns are chromosome, start, end, iHS.
 
 ## Module parameters:
 NONE

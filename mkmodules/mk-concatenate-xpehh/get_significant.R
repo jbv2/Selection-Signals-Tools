@@ -28,13 +28,15 @@ args = commandArgs(trailingOnly=TRUE)
 
 ##Assign args
 input <- args[1]
-output <- gsub(pattern = ".csv", replacement = "_top1.csv", x = input)
+output <- gsub(pattern = ".csv", replacement = "_top1.bed", x = input)
 
 input.df <- read.table(file = input, header = T, sep = "\t", stringsAsFactors = F)
 
 ##Filter by p value
 significant <- input.df %>%
-  filter(P < 0.01)
+  filter(P < 0.01) %>%
+  mutate(start=POSITION-1, .after = CHR) %>%
+  select(CHR, start, POSITION, IHS)
 
 ##Save results 
 write.table(x = significant, file = output, quote = F, sep = "\t", row.names = F)

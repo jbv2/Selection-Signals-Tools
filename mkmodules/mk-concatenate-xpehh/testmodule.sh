@@ -15,5 +15,5 @@ echo "[>>.] results will be created in test/results"
 ## Move results from test/data to test/results
 ## results files are *.csv
 bash runmk.sh \
-&& mv test/data/*.csv test/results \
+&& mv test/data/*.csv test/data/*.bed test/results \
 && echo "[>>>] Module Test Successful"

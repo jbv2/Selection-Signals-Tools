@@ -45,7 +45,7 @@ CHR     POSITION        IHS   LOGPVALUE       P       SNP
 
 * A `.outliers.csv` file with the outliers with all chromosomes.
 
-* A `*top1.csv` file with iHS values according threshold.
+* A `*top1.bed` file with iHS values according threshold. Columns are chromosome, start, end, iHS.
 
 ## Module parameters:
 NONE
