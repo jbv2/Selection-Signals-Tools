@@ -7,20 +7,20 @@
 ## ignore nf.logs
 .nextflow.log*
 .nextflow/
-pbs-per-element/.nextflow.log*
-pbs-per-element/.nextflow
+nf-pbs-per-element/.nextflow.log*
+nf-nf-pbs-per-element/.nextflow
 pbs-per-snp/.nextflow.log*
 pbs-per-snp/.nextflow
 
 ## ignore workdirw
 work*
-pbs-per-element/work*
+nf-pbs-per-element/work*
 pbs-per-snp/work*
 
 ## Ignore test subdirectories from mkmodules
 mkmodules/*/test/results/*
 ./*/mkmodules/*/test/results/*
-pbs-per-element/mkmodules/*/test/results/*
+nf-pbs-per-element/mkmodules/*/test/results/*
 pbs-per-snp/mkmodules/*/test/results/*
 
 ## ignore intermediate and logs from tests
@@ -28,10 +28,10 @@ test/data/*/intermediate/
 test/data/*/logs/
 test/results*
 mkmodules/*/test/data/*
-pbs-per-element/test/data/*/intermediate/
-pbs-per-element/test/data/*/logs/
-pbs-per-element/test/results*
-pbs-per-element/mkmodules/*/test/data/*
+nf-pbs-per-element/test/data/*/intermediate/
+nf-pbs-per-element/test/data/*/logs/
+nf-pbs-per-element/test/results*
+nf-pbs-per-element/mkmodules/*/test/data/*
 pbs-per-snp/test/data/*/intermediate/
 pbs-per-snp/test/data/*/logs/
 pbs-per-snp/test/results*
@@ -40,14 +40,14 @@ pbs-per-snp/mkmodules/*/test/data/*
 ## ignore local R datas
 *.Rdata
 *.Rhistory
-pbs-per-element/*.Rdata
-pbs-per-element/*.Rhistory
+nf-pbs-per-element/*.Rdata
+nf-pbs-per-element/*.Rhistory
 pbs-per-snp/*.Rdata
 pbs-per-snp/*.Rhistory
 
 ## ignore real data dirs
 real-data
-pbs-per-element/real-data
+nf-pbs-per-element/real-data
 pbs-per-snp/real-data
 
 ## ignore modules marked as REDO - means, in need of refactoring or remaking
