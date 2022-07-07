@@ -1,0 +1,27 @@
+## mk-get-fst-per-for-target_outgroup-element
+## Define shell command line which will be used to run scripts.
+MKSHELL="/bin/bash"
+
+%.CHECKPOINT.tmp:VQ: %.vcf.gz $REF_GENE $POP_OUTGROUP $POP_TARGET
+	echo "[DEBUG] Calculating Fst for $POP_TARGET and $POP_OUTGROUP"
+	while read line
+	do
+		chromosome=$(echo "$line" | cut -f1)
+		start=$(echo "$line" | cut -f2)
+		end=$(echo "$line" | cut -f3)
+		element=$(echo "$line" | cut -f4)
+		if [[ "$stem" == .*_chrom"$chromosome" ]] ; then
+			vcftools --gzvcf $stem.vcf.gz \
+				 --weir-fst-pop $POP_TARGET \
+				 --weir-fst-pop $POP_OUTGROUP \
+				 --out $element.$POP_1"_"$POP_3 \
+				 --chr $chromosome \
+				 --from-bp $start \
+				 --to-bp $end 2>&1 \
+				 | tee > "$element".$POP_1"_"$POP_3.log \
+				 && weighted_fst=$(grep "weighted" "$element".$POP_1"_"$POP_3.log | cut -f 7 -d " ")
+				 snps=$(tail -n+2 "$element".$POP_1"_"$POP_3.weir.fst | wc -l)
+				 echo "$chromosome $start $end $element $snps $weighted_fst" \
+				 | tr " " "\t" >> $POP_1"_"$POP_3.$chromosome.weighted
+		fi
+	done < $REF_GENE

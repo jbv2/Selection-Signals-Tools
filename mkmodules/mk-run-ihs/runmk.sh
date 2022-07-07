@@ -3,6 +3,5 @@
 find -L . \
   -type f \
   -name "*_chrom*.vcf.gz" \
-  | sed "s#_chrom[0-9]*.vcf.gz#.ihs.tsv#" \
-  | sort -u \
+  | sed "s#.vcf.gz#.ihs.tsv#" \
   | xargs mk

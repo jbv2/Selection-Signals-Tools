@@ -1,0 +1,9 @@
+## mk-calculate-pbs-per-gene
+## Define shell command line which will be used to run scripts.
+MKSHELL="/bin/bash"
+
+%/ihs_results.csv:Q: %/
+	echo "[DEBUG] Concatenating iHS results"
+	awk 'FNR>1 || NR==1' $prereq/*.ihs_outliers.tsv > $stem/ihs_outliers.csv
+	awk 'FNR>1 || NR==1' $prereq/*.ihs.tsv > $target \
+	&& Rscript --vanilla get_significant.R $target

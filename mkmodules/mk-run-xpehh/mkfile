@@ -6,15 +6,16 @@
 MKSHELL=/bin/bash
 
 %.xpehh.tsv:Q: %.vcf.gz
+	echo "[DEBUG] Running XP-EHH for $prereq"
 	number_lines=$(bcftools view -H "$prereq" | wc -l)
 	if [[ $number_lines > 0 ]]
 	then
 	end_file=".vcf.gz"
 	chromosome=$(basename "$prereq" "$end_file" | sed "s#[a-z]*.*_chrom##")
-	echo "[DEBUG] Running XP-EHH for chromosome $chromosome"
-	#echo "$chromosome $stem $end_file $FIRST_POP $SECOND_POP $target $STEM_INGROUP $END_FILE_INGROUP"
-	Rscript --vanilla mxb_selection_xp-ehh.R $chromosome $stem $end_file $FIRST_POP $SECOND_POP $target $STEM_INGROUP $END_FILE_INGROUP
+	bcftools view -H $prereq | cut -f 1,2,3 > $stem.rsid
+	echo "$chromosome $prereq $FIRST_POP $SECOND_POP $target $STEM_INGROUP $END_FILE_INGROUP $THREADS"
+	Rscript --vanilla mxb_selection_xp-ehh.R $chromosome $prereq $FIRST_POP $SECOND_POP $target $STEM_INGROUP $END_FILE_INGROUP $THREADS $stem".rsid" \
+	&& rm $stem.rsid
 	else
-	touch $target
+		touch $target
 	fi
-	# && rm $stem.chrom

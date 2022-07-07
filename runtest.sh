@@ -1,11 +1,12 @@
 echo -e "======\n Testing NF execution \n======" \
 && rm -rf test/results/ \
-&& nextflow run mxb_selection_signals_tool.nf \
-	--vcffile "test/data/test.vcf.gz" \
+&& nextflow run haplotype_selection.nf \
+	--vcffile "test/data/test_data.vcf.gz" \
 	--min_af "0" \
 	--geno "0.001" \
 	--min_alleles "0" \
 	--max_alleles "100" \
+	--threads "2" \
   --first_pop "MXB" \
   --second_pop "PEL" \
   --stem_ingroup "test/reference/test_1000g_" \

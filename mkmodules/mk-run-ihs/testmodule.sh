@@ -3,7 +3,7 @@
 
 ###
 ## environment variable setting
-#NONE
+export THREADS=2
 ###
 
 echo "[>..] test running this module with data in test/data"

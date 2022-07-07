@@ -1,0 +1,7 @@
+## mk-plot-pbs-per-element
+## Define shell command line which will be used to run scripts.
+MKSHELL="/bin/bash"
+
+%.png:Q: %.tsv
+	echo "[DEBUG] Plotting PBS for $prereq"
+	Rscript --vanilla plot_pbs.R $prereq $target

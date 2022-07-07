@@ -1,0 +1,14 @@
+## mk-calculate-pbs-per-snp
+## Define shell command line which will be used to run scripts.
+MKSHELL="/bin/bash"
+
+%.CHECKPOINT.tmp:QV: %/
+	echo "[DEBUG] Calculating PBS per snp for $prereq"
+	awk 'FNR>1 || NR==1' $prereq/*{1..22}.$POP_1"_"$POP_3.weir.fst > $prereq$POP_1"_"$POP_3
+	awk 'FNR>1 || NR==1' $prereq/*{1..22}.$POP_1"_"$POP_2.weir.fst > $prereq$POP_1"_"$POP_2
+	awk 'FNR>1 || NR==1' $prereq/*{1..22}.$POP_2"_"$POP_3.weir.fst > $prereq$POP_2"_"$POP_3
+	mv $prereq/$POP_1"_"$POP_3 $prereq/$POP_1"_"$POP_3.compute
+	mv $prereq/$POP_1"_"$POP_2 $prereq/$POP_1"_"$POP_2.compute
+	mv $prereq/$POP_2"_"$POP_3 $prereq/$POP_2"_"$POP_3.compute
+	Rscript --vanilla calculate_snp_pbs.R $prereq $prereq$POP_1"_"$POP_2"_"$POP_3"_snp_pbs.bed" $POP_1"_"$POP_3 $POP_1"_"$POP_2 $POP_2"_"$POP_3 \
+	&& rm $prereq/*.compute

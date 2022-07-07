@@ -1,0 +1,7 @@
+### mk-gather-chromosomes
+## Define shell command line which will be used to run scripts.
+MKSHELL=/bin/bash
+
+(.*)\\.wfst:QR:
+	echo "[DEBUG] Concatenating Fst chromosomes files for $stem1"
+	cat $(ls $stem1*.weighted | sort -V) > $target

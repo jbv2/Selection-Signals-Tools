@@ -1,0 +1,7 @@
+## mk-calculate-pbs-per-element
+## Define shell command line which will be used to run scripts.
+MKSHELL="/bin/bash"
+
+%.CHECKPOINT.tmp:QV: %/
+	echo "[DEBUG] Calculating PBS per element for $(ls $prereq*.wfst)"
+	Rscript --vanilla calculate_element_pbs.R $prereq $prereq$POP_1"_"$POP_2"_"$POP_3"_pbs.tsv" $POP_1"_"$POP_3 $POP_1"_"$POP_2 $POP_2"_"$POP_3

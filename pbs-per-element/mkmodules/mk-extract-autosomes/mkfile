@@ -1,0 +1,9 @@
+### mk-extract-autosomes
+## Define shell command line which will be used to run scripts.
+MKSHELL=/bin/bash
+
+%.CHECKPOINT.tmp:VQ: %.vcf.gz
+	for i in {1..22};
+	do bcftools view --regions $i $prereq \
+	| bgzip > $stem"_chrom"$i.vcf.gz ;
+	done

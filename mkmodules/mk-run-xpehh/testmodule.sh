@@ -7,6 +7,7 @@ export FIRST_POP="MXB"
 export SECOND_POP="PEL"
 export STEM_INGROUP="./test/reference/test_1000g_"
 export END_FILE_INGROUP=".vcf.gz"
+export THREADS="2"
 ###
 
 echo "[>..] test running this module with data in test/data"

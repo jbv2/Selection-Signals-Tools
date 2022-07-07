@@ -4,7 +4,7 @@
 ## Manually have to change F_MISSING
 MKSHELL=/bin/bash
 
-%.CHECKPOINT.tmp:V: %.vcf.gz
+%.CHECKPOINT.tmp:QV: %.vcf.gz
 	for i in {1..22};
 	do bcftools view --regions $i $prereq \
 	| bcftools +fill-tags -- -t F_MISSING,AF \

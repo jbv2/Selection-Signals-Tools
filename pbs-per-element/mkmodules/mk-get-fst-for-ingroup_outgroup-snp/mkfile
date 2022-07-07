@@ -1,0 +1,10 @@
+## mk-get-fst-per-for-ingroup_outgroup-element
+## Define shell command line which will be used to run scripts.
+MKSHELL="/bin/bash"
+
+%.CHECKPOINT.tmp:VQ: %.vcf.gz $POP_OUTGROUP $POP_INGROUP
+	echo "[DEBUG] Calculating Fst for $POP_INGROUP and $POP_OUTGROUP"
+	vcftools --gzvcf $stem.vcf.gz \
+			 --weir-fst-pop $POP_INGROUP \
+			 --weir-fst-pop $POP_OUTGROUP \
+			 --out $stem.$POP_2"_"$POP_3
