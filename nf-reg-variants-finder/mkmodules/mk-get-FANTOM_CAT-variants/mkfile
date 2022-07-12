@@ -1,0 +1,26 @@
+### mk-get-GeneHancer-variants ###
+# mkfile script with dependency rules for:
+#	1. To separate variants with a GeneHancer ID. For more information about GeneHancer, see https://genome.ucsc.edu/cgi-bin/hgTrackUi?db=hg19&g=geneHancer
+## For more information about 'mk' dependency control, see https://9fans.github.io/plan9port/man/man1/mk.html
+
+## Define shell command line which will be used to run scripts.
+MKSHELL=/bin/bash
+
+%.SEPARATE_FANTOM_CAT:QV: %.fantomcat.vcf
+	echo "[DEBUG] Done separating variants by FANTOM CAT affected"
+
+## Filter vep is a VEP tool described here: https://www.ensembl.org/info/docs/tools/vep/script/vep_filter.html
+# -i, input file
+# -o, output file
+# --vcf_info_field, VEP finds annotations in ANN field
+# -filter, VEP finds variants where it matches with "GeneHancer_type_and_Genes"
+# --force_overwrite, forces an ouput file
+%.fantomcat.vcf:Q: %.vcf
+	echo "[DEBUG] extracting FANTOM CAT variants for $prereq"
+	filter_vep \
+		-i $prereq \
+		-o $target.build \
+		--vcf_info_field ANN \
+		-filter "FANTOM-CAT_lncRNAID" \
+		--force_overwrite \
+	&& mv $target.build $target

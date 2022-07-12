@@ -1,0 +1,41 @@
+### mk-get-GWAScatalog-variants ###
+# mkfile script with dependency rules for:
+#	1. To separate variants found in GWAS Catalog. For more information about GWAS Catalog, see https://www.ebi.ac.uk/gwas/
+## For more information about 'mk' dependency control, see https://9fans.github.io/plan9port/man/man1/mk.html
+
+## Define shell command line which will be used to run scripts.
+MKSHELL=/bin/bash
+
+%.GWASmxb.vcf:QV: %.GWASmxb_bolt.vcf %.GWASmxb_saige.vcf
+	echo "[DEBUG] Done separating variants by GWAScatalog annotated"
+	bcftools concat \
+		$prereq \
+		> $target.build \
+	&& mv $target.build $target && rm $prereq
+
+## Filter vep is a VEP tool described here: https://www.ensembl.org/info/docs/tools/vep/script/vep_filter.html
+# -i, input file
+# -o, output file
+# --vcf_info_field, VEP finds annotations in ANN field
+# -filter, VEP finds variants where it matches with "gwascatalog"
+# --force_overwrite, forces an ouput file
+%.GWASmxb_saige.vcf:Q: %.vcf %.GWASmxb_bolt.vcf
+	echo "[DEBUG] extracting GWASmxb saige variants for $prereq"
+	filter_vep \
+		-i $stem.vcf \
+		-o $target.build \
+		--vcf_info_field ANN \
+		-filter "gwasmxb_saige" \
+		--force_overwrite \
+	&& mv $target.build $target
+
+
+%.GWASmxb_bolt.vcf:Q: %.vcf
+	echo "[DEBUG] extracting GWASmxb bolt variants for $prereq"
+	filter_vep \
+		-i $prereq \
+		-o $target.build \
+		--vcf_info_field ANN \
+		-filter "gwasmxb_bolt" \
+		--force_overwrite \
+	&& mv $target.build $target

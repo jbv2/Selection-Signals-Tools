@@ -1,0 +1,99 @@
+## mk-vep-extended ###
+# mkfile script with dependency rules for:
+#	1. Run Variant Effector Predictor to annotate variants in a vcf.
+## For more information about VEP, see https://www.ensembl.org/info/docs/tools/vep/index.html
+
+## Define shell command line which will be used to run scripts.
+MKSHELL=/bin/bash
+%.vep.vcf:Q: %.untangled_multiallelics.vcf
+	echo "[DEBUG] annotating $prereq"
+	## HGVS may take a lot of computing time the first time is run
+	# --format, input type that can be Ensembl, VCF, IDs, HGVS, SPDI or region format
+	# --vcf, selects the output format
+	# --vcf_info_field, changes the name of the INFO key where VEP write the consequences in its VCF output
+	# --force_overwrite, forces to overwrite output even if its an error
+	# --no_stats, does not generate a stats file.
+	# --warning_file, write warnings and errors to a file.
+	# --fork, enables forking
+	# --species, species for the data.
+	# --assembly, select the assembly version to use.
+	# --cache, enables to use cache if installed.
+	# --offline, No database connections will be made.
+	# --fasta, specify a FASTA to use to look up reference sequence.
+	# --buffer_size, number of variants that are read in to memory simultaneously
+	# --regulatory, sees overlaps in regulatory regions.
+	# --pick, takes one line of consequence per variant.
+	# --variant_class, outputs the sequence ontology.
+	# --gene_phenotype, indicates if a certain genotype is associated with a phenotype
+	# --numbers, indicates affected exon or intron
+	# --hgvs, adds HGVS nomenclature based on Ensembl identifiers
+	# --hgvsg, adds genomic HGVS nomenclature.
+	# --transcript_version, adds version numbers to ensembl transcript identifiers.
+	# --symbol, adds the gene symbol to the output.
+	# --canonical, adds a flag indicatig if transcript is cacnonical.
+	# --check_existing, checks for the existence of known variants in the same locus.
+	# --af, adds the global allele frequency from 1000 genomes phase 3.
+	# --max_af, reports the highest allele frequency observed in any popuñation from 1000g, ESP or gnomAD.
+	# --af_1kg, adds allele frequency from continental populations (AFR, AMR, EAS, AUR, SAS) from 1000g.
+	# --dont_skip, does not skip input variants that fail validation.
+	# --allow_non_variant, when using VCF format as input and output, VEP skip non-variant lines. Enabling this, lines where ALT==REF will be printed with no consequence added.
+	# --custom, adds custom annotation to the output.
+	# --plugin, plugin modules should be installed.
+	# We use overlap "1", because forces VEP to output the coordinates of an overlapping custom feature instead of any found identifier.
+	vep \
+		--input_file $prereq \
+		--offline \
+		--use_given_ref \
+		--synonyms $SYNONYMS \
+		--format "vcf" \
+		--output_file $target.build \
+		--vcf \
+		--vcf_info_field $VCF_INFO_FIELD \
+		--force_overwrite \
+		--no_stats \
+		--warning_file $target.err.txt \
+		--fork $FORK_VEP \
+		--species $SPECIES \
+		--assembly $VEP_GENOME_VERSION \
+		--cache \
+		--offline \
+		--fasta $GENOME_REFERENCE \
+		--buffer_size $BUFFER_SIZE \
+		--regulatory \
+		--pick \
+		--variant_class \
+		--gene_phenotype \
+		--numbers \
+		--hgvs \
+		--hgvsg \
+		--transcript_version \
+		--symbol \
+		--canonical \
+		--check_existing \
+		--af \
+		--max_af \
+		--af_1kg \
+		--dont_skip \
+		--allow_non_variant \
+		--custom "$IHS_VALUE","ihs","bed","overlap","0" \
+		--custom "$XP_EHH_VALUE","xp_ehh","bed","overlap","0" \
+		--custom "$PBS_PER_SNP","pbs_per_snp","bed","overlap","0" \
+		--custom "$PBS_PER_GENE_ENSEMBL","pbs_per_gene_ensembl","bed","overlap","0" \
+		--custom "$PBS_PER_GENE_FANTOM","pbs_per_gene_fantom","bed","overlap","0" \
+		--custom "$PBS_PER_GENE_GENEHANCER","pbs_per_gene_genehancer","bed","overlap","0" \
+		--custom "$GENEHANCER_REFERENCE","Type_GeneHancer_Genes","bed","overlap","0" \
+		--custom "$FANTOM_REFERENCE","FANTOM-CAT_lncRNAID","bed","overlap","0" \
+		--custom "$LNCRNA_PROMOTERS_REFERENCE","lncRNA_promoter","bed","overlap","0" \
+		--custom "$GNOMAD_REFERENCE",gnomADg,vcf,exact,0,AF_afr,AF_amr,AF_asj,AF_eas,AF_fin,AF_nfe,AF_oth \
+		--custom "$GWASCATALOG_REFERENCE","gwascatalog","vcf","exact",0,"GWAScat_DISEASE_orTRAIT,GWAScat_REPORTED_GENE,GWAScat_MAPPED_GENE,GWAScat_P_VALUE,GWAScat_P_VALUE_MLOG,GWAScat_OR_or_BETA,GWAScat_INITIAL_SAMPLE_SIZE,GWAScat_PUBMEDID" \
+		--custom "$GWASMXB_SAIGE_REFERENCE","gwasmxb_saige","vcf","exact",0,"GWASmxb_TRAIT,GWASmxb_P_VALUE,GWASmxb_BETA,GWASmxb_FREQ,GWASmxb_SAMPLE" \
+		--custom "$GWASMXB_BOLT_REFERENCE","gwasmxb_bolt","vcf","exact",0,"GWASmxb_TRAIT,GWASmxb_P_VALUE,GWASmxb_BETA,GWASmxb_FREQ" \
+		--custom "$LINSIGHT_SCORE","LINSIGHT_SCORE","bed","overlap","0"\
+		--custom "$GWRVIS_SCORE","gwRVIS_score","bed","overlap","0" \
+		--custom "$JARVIS_SCORE","JARVIS_score","bed","overlap","0" \
+		--custom "$PHYLOP100",PhyloP100,bigwig \
+		--custom "$PHASTCONS",PhastCons,bigwig \
+		--plugin CADD,"$CADD" \
+		--plugin FATHMM_MKL,"$FATHMM_MKL" \
+		--plugin Gwava,"region","$GWAVA" \
+	&& mv $target.build $target

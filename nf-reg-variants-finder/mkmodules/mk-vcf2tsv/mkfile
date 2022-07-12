@@ -1,0 +1,44 @@
+### mk-vcf2tsv ###
+# mkfile script with dependency rules for:
+#	1. To convert vcf files to tsv format.
+## For more information about the VCF format, please go to the next link: https://www.internationalgenome.org/wiki/Analysis/Variant%20Call%20Format/vcf-variant-call-format-version-40/
+## For more information about 'mk' dependency control, see https://9fans.github.io/plan9port/man/man1/mk.html
+
+## Define shell command line which will be used to run scripts.
+MKSHELL=/bin/bash
+
+%.tsv.gz:Q: %.vcf
+	echo "[DEBUG] converting vcf to tsv for $prereq"
+	## Use bcftools to manipulate Variant Call Format (VCF) (input).
+	## For more information about 'bcftools' commands, see https://samtools.github.io/bcftools/bcftools.html
+	## start header for file
+	## define header ann fields
+	# Find line where ann fields are (grep "^##INFO=<ID=ANN,")
+	# Remove all text before the first field (sed "s#.*Format: ##")
+	# Change separator of fields from "|" to "tab", for tsv format
+	# Remove " (cut -d"\"" -f1)
+	# grep -v to keep fields that do not start with "#"
+	ann_header="$(bcftools view -h $prereq | grep "^##INFO=<ID=ANN," | sed "s#.*Format: ##" | tr "|" "\t" | cut -d"\"" -f1)"
+	grep -v "^#" fields_to_extract.txt | tr "\n" "\t" | sed "s#ANN\t\$#$ann_header\n#" | gzip > $target.build
+	## see if file is empty...
+	if [ ! -s "$prereq" ]
+	then
+		## if file is empty, target file is created empty too
+		echo "[DEBUG] $prereq was empty; no variants for output"
+	else
+		## Define formar with bcftools query
+		# Fields to keep are listed with a "%" by bcftools query
+		# Changing separators to tabs for Tab Separator Values file
+		# Adding "." to blanck spaces
+		bcftools query \
+		-f "$(grep -v "^#" fields_to_extract.txt | sed "s#^#%#" | tr "\n" "\t" | sed "s#\t\$#\\\n#")" \
+		$prereq \
+		| sed \
+				-e "s#\t|#.#" \
+				-e "s#||#|.|#g" \
+				-e "s#||#|.|#g" \
+				-e "s#|\$#|.#" \
+		| tr "|" "\t" \
+		| gzip >> $target.build
+	fi \
+	&& mv $target.build $target

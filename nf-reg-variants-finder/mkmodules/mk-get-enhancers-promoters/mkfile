@@ -1,0 +1,29 @@
+### mk-get-lncRNAs-introns-exons ###
+# mkfile script with dependency rules for:
+#	1. To find out if variants belong to an intron or exon of a lncRNA.
+## For more information about 'mk' dependency control, see https://9fans.github.io/plan9port/man/man1/mk.html
+#
+# then Rscript --vanilla extract_columns.R $prereq $target".tmp" \
+# && head -n+1 $target".tmp" > $stem.header \
+# && cat $target".tmp" | tail -n+2 | tr "\t" ";" | sed "s#;#\t#1" | sed "s#;#\t#1" | sed "s#;#\t#1" > $target \
+# && bgzip $prereq && rm $target".tmp"
+
+## Define shell command line which will be used to run scripts.
+MKSHELL=/usr/bin/bash
+
+%.enhancers.tsv:Q: %.tsv
+	echo "[DEBUG] separating enhancers from promoters"
+	number_of_lines=$(cat $prereq | wc -l)
+	if [ $(cat $prereq | wc -l) -gt 1 ]
+	then
+	echo $prereq
+	cat $prereq | sed "s#\\%3B#\&#g" | sed "s#genehancer_id=##"g | sed "s#connected_gene=##"g | sed "s#score=##g" > $prereq.tmp \
+	&& Rscript --vanilla separate_enhancers.R $prereq.tmp $target \
+	&& rm $prereq.tmp
+	else touch $target
+	fi \
+	&& bgzip $prereq
+
+%.tsv:Q: %.tsv.gz
+	echo "[DEBUG] Decompressing"
+	gunzip -f $prereq

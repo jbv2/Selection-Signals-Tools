@@ -1,0 +1,56 @@
+#!/bin/bash
+### mk-get-lncRNAs-introns-exons ###
+# mkfile script with dependency rules for:
+#	1. To find out if variants belong to an intron or exon of a lncRNA.
+## For more information about 'mk' dependency control, see https://9fans.github.io/plan9port/man/man1/mk.html
+
+
+## Define shell command line which will be used to run scripts.
+MKSHELL=/usr/bin/bash
+
+%.introns_exons.tsv:Q: %.exons.bed
+	echo "[DEBUG] Intersecting variants with exons"
+	if [ $(cat $prereq | wc -l) -gt 0 ]
+	then
+	cat $stem.header | sed "s#\$#\tcoordinates\tlncID\tnumber\ttype\tlnc_coordinates#" > $target.build
+	bedtools intersect -a $stem.bed -b $prereq -wb \
+	| sed "s#\t#_#5" \
+	| sed "s#\t#_#5" \
+	| cut --complement -f8 \
+	| awk 'BEGIN{FS=OFS="\t"} {print $0, $NF="exon"}'>> $target.tmp \
+	&& bedtools intersect -a $stem.bed -b $stem.introns.bed -wb \
+	| sed "s#\t#_#5" \
+	| sed "s#\t#_#5" \
+	| cut --complement -f8 \
+	| awk 'BEGIN{FS=OFS="\t"} {print $0, $NF="intron"}'>> $target.tmp \
+	&& bedtools intersect -a $target.tmp -b $FANTOM_REFERENCE -wb \
+	| cut -f 1-11 \
+	| sed "s#\t#_#9" \
+	| sed "s#\t#_#9" \
+	| tr ";" "\t" >> $target.build \
+	&& Rscript --vanilla cleaner.R $target.build $target
+	else
+	touch $target && touch $stem.introns_exons.summary.tsv $stem.top_variants_per_lncRNA.tsv
+	fi \
+	&& rm -f $target.build $target.tmp $prereq $stem.introns.bed $stem.bed $stem.header
+
+%.exons.bed:Q: %.bed
+	echo "[DEBUG] Getting BED of exons from FANTOM-CAT intersections for $prereq"
+	if [ $(cat $prereq | wc -l) -gt 0 ]
+	then bedtools intersect -a $FANTOM_REFERENCE -b $prereq -wa > $target.tmp \
+	&& Rscript --vanilla get_exons.R $target.tmp $target
+	else touch $target
+	fi \
+	&& rm -f $target.tmp
+
+%.bed:Q: %.tsv
+	echo "[DEBUG] converting original TSV to BED format"
+	number_of_lines=$(cat $prereq | wc -l)
+	if [ $(cat $prereq | wc -l) -gt 1 ]
+	then Rscript --vanilla extract_columns.R $prereq $target".tmp" && head -n+1 $target".tmp" > $stem.header && cat $target".tmp" | tail -n+2 | tr "\t" ";" | sed "s#;#\t#1" | sed "s#;#\t#1" | sed "s#;#\t#1" > $target && bgzip $prereq && rm $target".tmp"
+	else bgzip $prereq && touch $target
+	fi
+
+%.tsv:Q: %.tsv.gz
+	echo "[DEBUG] Decompressing"
+	gunzip -f $prereq
