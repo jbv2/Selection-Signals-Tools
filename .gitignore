@@ -5,50 +5,29 @@
 *Rplots.pdf
 
 ## ignore nf.logs
-.nextflow.log*
-.nextflow/
-nf-pbs-per-element/.nextflow.log*
-nf-nf-pbs-per-element/.nextflow
-nf-haplotype-selection/.nextflow.log*
-nf-haplotype-selection/.nextflow
+*/.nextflow.log*
+*/.nextflow*
 
 ## ignore workdirw
 work*
-nf-pbs-per-element/work*
-nf-haplotype-selection/work*
+*/work*
 
 ## Ignore test subdirectories from mkmodules
-mkmodules/*/test/results/*
-./*/mkmodules/*/test/results/*
-nf-pbs-per-element/mkmodules/*/test/results/*
-nf-haplotype-selection/mkmodules/*/test/results/*
+*/mkmodules/*/test/results/*
 
 ## ignore intermediate and logs from tests
-test/data/*/intermediate/
-test/data/*/logs/
-test/results*
-mkmodules/*/test/data/*
-nf-pbs-per-element/test/data/*/intermediate/
-nf-pbs-per-element/test/data/*/logs/
-nf-pbs-per-element/test/results*
-nf-pbs-per-element/mkmodules/*/test/data/*
-nf-haplotype-selection/test/data/*/intermediate/
-nf-haplotype-selection/test/data/*/logs/
-nf-haplotype-selection/test/results*
-nf-haplotype-selection/mkmodules/*/test/data/*
+*/test/data/*/intermediate/
+*/test/data/*/logs/
+*/test/results*
+*/mkmodules/*/test/data/*
 
 ## ignore local R datas
-*.Rdata
-*.Rhistory
-nf-pbs-per-element/*.Rdata
-nf-pbs-per-element/*.Rhistory
-nf-haplotype-selection/*.Rdata
-nf-haplotype-selection/*.Rhistory
+*/*.Rdata
+*/*.Rhistory
 
 ## ignore real data dirs
-real-data
-nf-pbs-per-element/real-data
-nf-haplotype-selection/real-data
+*/real-data
+*/launchers
 
 ## ignore modules marked as REDO - means, in need of refactoring or remaking
 *REDO
