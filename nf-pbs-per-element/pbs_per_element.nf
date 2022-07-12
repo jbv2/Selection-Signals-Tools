@@ -6,7 +6,7 @@ The RegRNALab presents...
 - A pipeline to run PBS per gene per genomic element
 ==================================================================
 Version: 0.1.0
-Project repository: git clone https://github.com/jbv2/mxb_selection_signals.git
+Project repository: git clone https://github.com/jbv2/Selection-Signals-Tools.git
 ==================================================================
 Authors:
 - Bioinformatics Design
@@ -255,7 +255,7 @@ process _pre1_extract_autosomes {
 
 	output:
 	file "*_chrom*.vcf.gz" into results_pre1_extract_autosomes_2a, results_pre1_extract_autosomes_2b, results_pre1_extract_autosomes_2c
-	file "*_chrom*.vcf.gz" into results_pre1_extract_autosomes_3a, results_pre1_extract_autosomes_3b, results_pre1_extract_autosomes_3c 
+	file "*_chrom*.vcf.gz" into results_pre1_extract_autosomes_3a, results_pre1_extract_autosomes_3b, results_pre1_extract_autosomes_3c
 
 	"""
 	bash runmk.sh

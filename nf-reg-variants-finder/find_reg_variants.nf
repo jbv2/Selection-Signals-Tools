@@ -6,7 +6,7 @@ The RegRNALab presents...
 - A functional effect prediction tool
 ==================================================================
 Version: 0.1.0
-Project repository: git clone https://jballesterosv@bitbucket.org/jballesterosv/nf-reg-variants-finder.git
+Project repository: git clone https://github.com/jbv2/Selection-Signals-Tools.git
 ==================================================================
 Authors:
 - Bioinformatics Design

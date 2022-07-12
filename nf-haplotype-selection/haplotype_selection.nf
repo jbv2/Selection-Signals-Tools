@@ -6,7 +6,7 @@ The RegRNALab presents...
 - A pipeline that runs iHS and XP-EHH
 ==================================================================
 Version: 0.1.0
-Project repository: git clone https://github.com/jbv2/mxb_selection_signals.git
+Project repository: git clone https://github.com/jbv2/Selection-Signals-Tools.git
 ==================================================================
 Authors:
 - Bioinformatics Design
