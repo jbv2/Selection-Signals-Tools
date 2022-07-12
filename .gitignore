@@ -19,7 +19,9 @@ work*
 */test/data/*/intermediate/
 */test/data/*/logs/
 */test/results*
+*/test/reference/*
 */mkmodules/*/test/data/*
+
 
 ## ignore local R datas
 */*.Rdata
