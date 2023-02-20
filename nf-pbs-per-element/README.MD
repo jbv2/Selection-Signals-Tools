@@ -31,7 +31,7 @@ Nextflow pipeline that takes a three pop vcf, runs and computes PBS per element 
 |:---------:|:--------:|:-------------------:|
 | [bcftools](https://samtools.github.io/bcftools/) | 1.9-220-gc65ba41 | view|
 | [vcftools](http://vcftools.sourceforge.net/) | 0.1.16 | --weir-fst-pop |
-| [Nextflow](https://www.nextflow.io/docs/latest/getstarted.html) | 19.04.1.5072 | nextflow |
+| [Nextflow](https://www.nextflow.io/docs/latest/getstarted.html) | 20.10 | nextflow |
 | [Plan9 port](https://github.com/9fans/plan9port) | Latest (as of 10/01/2019 ) | mk \** |
 | [R](https://www.r-project.org/) | 3.6.4 | Rscript |
 
